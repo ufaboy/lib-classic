@@ -1,5 +1,8 @@
 <?php
 
+use app\models\Author;
+use app\models\Series;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -9,7 +12,10 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="book-form">
-
+    <?=
+	$authors = ArrayHelper::map(Author::find()->select('id, name')->all(),'id','name');
+	$series = ArrayHelper::map(Series::find()->select('id, name')->all(),'id','name');
+    ?>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -28,15 +34,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'author_id')->textInput() ?>
+    <?= $form->field($model, 'author_id')->dropdownList(
+		$authors, ['prompt'=>'Select Author', 'label' => 'name']
+		) ?>
 
-    <?= $form->field($model, 'series_id')->textInput() ?>
+    <?= $form->field($model, 'series_id')->dropdownList(
+		$series, ['prompt'=>'Select Series', 'label' => 'name']
+	) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'last_read')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

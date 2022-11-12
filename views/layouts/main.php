@@ -38,8 +38,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
     ]);
 	$menuItems = [
 		['label' => 'Home', 'url' => ['/site/index']],
-		['label' => 'About', 'url' => ['/site/about']],
-		['label' => 'Contact', 'url' => ['/site/contact']],
+		['label' => 'Tag', 'url' => ['/tag']],
+		['label' => 'Author', 'url' => ['/author']],
+		['label' => 'Series', 'url' => ['/series']],
+		['label' => 'Book', 'url' => ['/book']],
 	];
 	if (Yii::$app->user->isGuest) {
 		$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

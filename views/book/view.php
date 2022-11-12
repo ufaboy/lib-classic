@@ -12,21 +12,19 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="book-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+<!--    <p>
+        <?/*= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) */?>
+        <?/*= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
-    </p>
+        ]) */?>
+    </p>-->
+    <div><?= $model->text ?></div>
 
-    <?= DetailView::widget([
+<!--    DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
@@ -44,6 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
             'last_read',
         ],
-    ]) ?>
+    ])-->
 
 </div>
