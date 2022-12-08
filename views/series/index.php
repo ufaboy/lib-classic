@@ -27,11 +27,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'url:url',
+			[
+				'label' => 'ID',
+				'attribute' => 'id',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Name',
+				'attribute' => 'name',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Url',
+				'attribute' => 'url',
+                'format' => 'url',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, $model, $key, $index, $column) {

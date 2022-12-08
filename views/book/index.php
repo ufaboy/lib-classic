@@ -27,27 +27,91 @@ $this->params['breadcrumbs'][] = $this->title;
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
 		'columns' => [
-			'id',
-			'name',
-			'description',
-			'view_count',
-			'rating',
+			[
+				'label' => 'ID',
+				'attribute' => 'id',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Name',
+				'attribute' => 'name',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Description',
+				'attribute' => 'description',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label,
+                            'class' => [
+								'text-truncate', 'vw-25'
+                            ]];
+					}
+				}
+			],
+			[
+				'label' => 'View Count',
+				'attribute' => 'view_count',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Rating',
+				'attribute' => 'rating',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
 			[
 				'label' => 'Author',
 				'attribute' => 'author.name',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
 			],
 			[
 				'label' => 'Series',
-				'attribute' => 'series.name',],
+				'attribute' => 'series.name',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
 			[
 				'label' => 'Updated',
 				'attribute' => 'updated_at',
-				'format' => ['date', 'php:Y-m-d']
+				'format' => ['date', 'php:Y-m-d'],
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
 			],
 			[
 				'label' => 'Last read',
 				'attribute' => 'last_read',
-				'format' => ['date', 'php:Y-m-d']
+				'format' => ['date', 'php:Y-m-d'],
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
 			],
 			[
 				'class' => ActionColumn::className(),
@@ -57,7 +121,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 		],
 	]); ?>
-
 	<?php Pjax::end(); ?>
 
 </div>

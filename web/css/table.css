@@ -1,0 +1,33 @@
+@media (max-width: 992px) {
+    thead {
+        display: none;
+    }
+
+    tbody,
+    tr,
+    td {
+        display: block;
+    }
+
+    tr {
+        margin-bottom: 1rem;
+    }
+
+    td {
+        padding: 5px;
+        text-align: right;
+        transition: all 0.3s ease;
+        min-height: 2rem;
+    }
+
+    td[data-title]:before {
+        content: attr(data-title);
+        float: left;
+        font-size: inherit;
+        font-weight: 400;
+        color: #757575;
+    }
+    .text-truncate {
+        max-width: 85vw;
+    }
+}

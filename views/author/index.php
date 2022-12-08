@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AuthorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -17,30 +18,51 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Author', ['create'], ['class' => 'btn btn-success']) ?>
+		<?= Html::a('Create Author', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+	<?php Pjax::begin(); ?>
+	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+	<?= GridView::widget([
+		'dataProvider' => $dataProvider,
+		'filterModel' => $searchModel,
+		'columns' => [
+			[
+				'label' => 'ID',
+				'attribute' => 'id',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'attribute' => 'name',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'attribute' => 'url',
+				'format' => 'url',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'class' => ActionColumn::className(),
+				'urlCreator' => function ($action, $model, $key, $index, $column) {
+					return Url::toRoute([$action, 'id' => $model->id]);
+				}
+			],
+		],
+	]); ?>
 
-            'id',
-            'name',
-            'url:url',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
+	<?php Pjax::end(); ?>
 
 </div>
