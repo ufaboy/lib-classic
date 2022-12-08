@@ -37,7 +37,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
 	$menuItems = [
-		['label' => 'Home', 'url' => ['/site/index']],
 		['label' => 'Tag', 'url' => ['/tag']],
 		['label' => 'Author', 'url' => ['/author']],
 		['label' => 'Series', 'url' => ['/series']],
@@ -66,22 +65,22 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
 
 <main id="main" class="flex-shrink-0" role="main">
     <div class="container">
-        <?php if (!empty($this->params['breadcrumbs'])): ?>
-            <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
-        <?php endif ?>
+<!--        <?php /*if (!empty($this->params['breadcrumbs'])): */?>
+            <?/*= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) */?>
+        --><?php /*endif */?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </main>
 
-<footer id="footer" class="mt-auto py-3 bg-light">
+<!--<footer id="footer" class="mt-auto py-3 bg-light">
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
-            <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
+            <div class="col-md-6 text-center text-md-start">&copy; My Company <?/*= date('Y') */?></div>
+            <div class="col-md-6 text-center text-md-end"><?/*= Yii::powered() */?></div>
         </div>
     </div>
-</footer>
+</footer>-->
 
 <?php $this->endBody() ?>
 </body>
