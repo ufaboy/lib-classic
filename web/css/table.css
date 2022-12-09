@@ -1,3 +1,25 @@
+.pagination {
+    margin-bottom: 0;
+}
+
+.pagination li {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.pagination li + li {
+    margin-left: 0.5rem;
+}
+.pagination li a {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width: 992px) {
     thead {
         display: none;
@@ -27,7 +49,24 @@
         font-weight: 400;
         color: #757575;
     }
+
     .text-truncate {
-        max-width: 85vw;
+        display: none;
+    }
+
+    .pagination {
+        justify-content: center;
+    }
+
+    .pagination li + li[class] {
+        margin-left: 1rem;
+    }
+    .pagination li:not([class]) {
+        display: none;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .table td {
+        color: #ffffff;
     }
 }

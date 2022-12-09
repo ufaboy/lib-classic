@@ -1,5 +1,6 @@
 <?php
 
+use app\assets\TableAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -11,6 +12,7 @@ use yii\widgets\Pjax;
 
 $this->title = 'Tags';
 $this->params['breadcrumbs'][] = $this->title;
+TableAsset::register($this);
 ?>
 <div class="tag-index">
 
@@ -26,6 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+		'tableOptions' => [
+			'class' => 'table table-bordered'
+		],
         'columns' => [
 			[
 				'label' => 'ID',

@@ -60,22 +60,22 @@ class BookSearch extends Book {
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			'id' => $this->id,
-			'view_count' => $this->view_count,
-			'rating' => $this->rating,
-			'bookmark' => $this->bookmark,
+			'book.id' => $this->id,
+			'book.view_count' => $this->view_count,
+			'book.rating' => $this->rating,
+			'book.bookmark' => $this->bookmark,
 			'author_id' => $this->author_id,
 			'series_id' => $this->series_id,
-			'created_at' => $this->created_at,
-			'updated_at' => $this->updated_at,
-			'last_read' => $this->last_read,
+			'book.created_at' => $this->created_at,
+			'book.updated_at' => $this->updated_at,
+			'book.last_read' => $this->last_read,
 		]);
 
-		$query->andFilterWhere(['like', 'name', $this->name])
-			->andFilterWhere(['like', 'description', $this->description])
-			->andFilterWhere(['like', 'text', $this->text])
-			->andFilterWhere(['like', 'source', $this->source])
-			->andFilterWhere(['like', 'cover', $this->cover])
+		$query->andFilterWhere(['like', 'book.name', $this->name])
+			->andFilterWhere(['like', 'book.description', $this->description])
+			->andFilterWhere(['like', 'book.text', $this->text])
+			->andFilterWhere(['like', 'book.source', $this->source])
+			->andFilterWhere(['like', 'book.cover', $this->cover])
 			->andFilterWhere(['like', 'author.name', $this->getAttribute('author.name')])
 			->andFilterWhere(['like', 'series.name', $this->getAttribute('series.name')]);
 

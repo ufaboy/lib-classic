@@ -6,26 +6,31 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\assets\BookTableAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BookSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+BookTableAsset::register($this);
 
 $this->title = 'Books';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-index">
 
-    <p>
+    <p class="create-book-wrapper">
 		<?= Html::a('Create Book', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 	<?php Pjax::begin(); ?>
-	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+	<?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
+		'tableOptions' => [
+                'class' => 'table table-bordered'
+        ],
 		'columns' => [
 			[
 				'label' => 'ID',
@@ -52,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					{
 						return ['data-title' => $column->label,
                             'class' => [
-								'text-truncate', 'vw-25'
+								'text-truncate', 'w-25'
                             ]];
 					}
 				}
