@@ -110,6 +110,8 @@ class BookController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+		$model->tag_ids = $model->tags;
+
 		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->id]);
         }

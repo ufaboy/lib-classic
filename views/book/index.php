@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'tags',
 				'value' => function ($model) {
 					if (is_array($model->tags)) {
-                        $tagArray = \yii\helpers\ArrayHelper::getColumn($model->tags, 'id');
+                        $tagArray = \yii\helpers\ArrayHelper::getColumn($model->tags, 'name');
                         Yii::debug($tagArray);
 						return implode(', ', $tagArray);
 					}

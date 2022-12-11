@@ -14,6 +14,7 @@ use yii\widgets\ActiveForm;
 
 <div class="book-form">
 	<?=
+	Yii::debug(ArrayHelper::getColumn($model->tags, ['id', 'name']));
 	$tags = ArrayHelper::map(Tag::find()->select('id, name')->all(), 'id', 'name');
 	$authors = ArrayHelper::map(Author::find()->select('id, name')->all(), 'id', 'name');
 	$series = ArrayHelper::map(Series::find()->select('id, name')->all(), 'id', 'name');
@@ -43,7 +44,7 @@ use yii\widgets\ActiveForm;
 
 	<?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
 
-	<?= $form->field($model, 'tags')->dropdownList(
+	<?= $form->field($model, 'tag_ids')->dropdownList(
 		$tags, ['prompt' => 'Select Tags', 'label' => 'name', 'multiple' => true,]
 	) ?>
 
