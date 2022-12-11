@@ -31,6 +31,8 @@ use yii\widgets\ActiveForm;
 
     <?php  echo $form->field($model, 'rating') ?>
 
+    <?php  echo $form->field($model, 'tag_name') ?>
+
     <?php // echo $form->field($model, 'bookmark') ?>
 
     <?php // echo $form->field($model, 'source') ?>

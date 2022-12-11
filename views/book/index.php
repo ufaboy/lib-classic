@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Author;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -67,8 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'tags',
 				'value' => function ($model) {
 					if (is_array($model->tags)) {
-                        $tagArray = \yii\helpers\ArrayHelper::getColumn($model->tags, 'name');
-                        Yii::debug($tagArray);
+                        $tagArray = ArrayHelper::getColumn($model->tags, 'name');
 						return implode(', ', $tagArray);
 					}
 

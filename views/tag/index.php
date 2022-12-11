@@ -50,16 +50,6 @@ TableAsset::register($this);
 					}
 				}
 			],
-			[
-				'label' => 'Description',
-				'attribute' => 'description',
-                'format' => 'ntext',
-				'contentOptions' => function ($model, $key, $index, $column) {
-					{
-						return ['data-title' => $column->label];
-					}
-				}
-			],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, $model, $key, $index, $column) {

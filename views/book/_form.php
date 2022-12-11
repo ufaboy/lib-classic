@@ -38,8 +38,6 @@ use yii\widgets\ActiveForm;
 		$ratings, ['prompt' => 'Select Rating']
 	) ?>
 
-	<?= $form->field($model, 'bookmark')->textInput() ?>
-
 	<?= $form->field($model, 'source')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>

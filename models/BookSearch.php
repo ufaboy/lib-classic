@@ -10,7 +10,7 @@ use app\models\Book;
  * BookSearch represents the model behind the search form of `app\models\Book`.
  */
 class BookSearch extends Book {
-
+public string $tag_name = '';
 	public function attributes() {
 		return array_merge(parent::attributes(), ['author.name', 'series.name']);
 	}
@@ -21,7 +21,7 @@ class BookSearch extends Book {
 	public function rules() {
 		return [
 			[['id', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
-			[['name', 'description', 'text', 'source', 'cover', 'author.name', 'series.name'], 'safe'],
+			[['name', 'description', 'text', 'source', 'cover', 'tag_name', 'author.name', 'series.name'], 'safe'],
 		];
 	}
 
@@ -47,6 +47,7 @@ class BookSearch extends Book {
 		$query = self::find();
 		$query->joinWith('author');
 		$query->joinWith('series');
+		$query->joinWith('tags');
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
@@ -77,8 +78,12 @@ class BookSearch extends Book {
 			->andFilterWhere(['like', 'book.source', $this->source])
 			->andFilterWhere(['like', 'book.cover', $this->cover])
 			->andFilterWhere(['like', 'author.name', $this->getAttribute('author.name')])
-			->andFilterWhere(['like', 'series.name', $this->getAttribute('series.name')]);
+			->andFilterWhere(['like', 'series.name', $this->getAttribute('series.name')])
+//			->andFilterWhere(['like', Tag::tableName() . '.name', $params['tag']]);
+			->andFilterWhere(['like', Tag::tableName() . '.name', $this->tag_name]);
+//			->andFilterWhere(['like', Tag::tableName() . '.name', $this->getAttribute('tag_name')]);
 
+		$query->groupBy(['id']);
 		$dataProvider->sort->attributes['author.name'] = [
 			'asc' => ['author.name' => SORT_ASC],
 			'desc' => ['author.name' => SORT_DESC],

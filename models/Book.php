@@ -55,7 +55,7 @@ class Book extends \yii\db\ActiveRecord {
 		return [
 			[['text'], 'string'],
 			[['view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
-			[['tags'], 'safe'],
+			[['tag_ids'], 'safe'],
 			[['name', 'cover'], 'string', 'max' => 255],
 			[['description', 'source'], 'string', 'max' => 1024],
 			[['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Author::className(), 'targetAttribute' => ['author_id' => 'id']],
