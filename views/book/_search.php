@@ -18,7 +18,13 @@ use yii\widgets\ActiveForm;
 			'class' => 'form-book'
         ],
     ]); ?>
-
+	<?= $ratings = [
+    1 => 'Bad',
+    2 => 'Poor',
+    3 => 'Fair',
+    4 => 'Good',
+    5 => 'Excellent',
+    ] ?>
     <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'name') ?>
@@ -29,7 +35,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'view_count') ?>
 
-    <?php  echo $form->field($model, 'rating') ?>
+    <?php  echo $form->field($model, 'rating')->dropdownList(
+		$ratings, ['prompt' => 'Select Rating']
+	) ?>
 
     <?php  echo $form->field($model, 'tag_name') ?>
 

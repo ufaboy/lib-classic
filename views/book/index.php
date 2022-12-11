@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class="create-book-wrapper">
 		<?= Html::a('Create Book', ['create'], ['class' => 'btn btn-success']) ?>
+		<?= Html::button('Filter', ['id' => 'show-filter', 'class' => 'btn btn-info']) ?>
     </p>
 
 	<?php Pjax::begin(); ?>

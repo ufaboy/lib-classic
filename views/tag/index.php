@@ -20,6 +20,7 @@ TableAsset::register($this);
 
     <p>
         <?= Html::a('Create Tag', ['create'], ['class' => 'btn btn-success']) ?>
+
     </p>
 
     <?php Pjax::begin(); ?>

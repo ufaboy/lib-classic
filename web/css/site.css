@@ -103,4 +103,12 @@ a.desc:after {
         color: #ffffff;
         background-color: #334155
     }
+    input, .form-control {
+        color: #ffffff;
+        background-color: #64748b;
+    }
+    input:focus, .form-control:focus {
+        color: #ffffff;
+        background-color: #94a3b8;
+    }
 }

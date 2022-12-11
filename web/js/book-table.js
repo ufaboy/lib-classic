@@ -19,13 +19,17 @@ function touchEnd(e) {
     } else if (difX < -100 && difY < 50) {
         slideRightLeft = true
     }
-    if (slideLeftRight) {
-        $('.book-search').css('display', 'flex');
-    }
+    if (slideLeftRight) showForm()
 }
+
+function showForm() {
+    $('.book-search').css('display', 'flex');
+}
+
 document.addEventListener('touchstart', touchStart, false);
 document.addEventListener('touchend', touchEnd, false);
 
 $('.form-book').on('reset', () => {
     $('.book-search').css('display', 'none');
 });
+$('#show-filter').click(showForm);
