@@ -23,14 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
 	<?php Pjax::begin(); ?>
-	<?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+	<?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
 		'tableOptions' => [
-                'class' => 'table table-bordered'
-        ],
+			'class' => 'table table-bordered'
+		],
 		'columns' => [
 			[
 				'label' => 'ID',
@@ -56,9 +56,27 @@ $this->params['breadcrumbs'][] = $this->title;
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
 						return ['data-title' => $column->label,
-                            'class' => [
+							'class' => [
 								'text-truncate', 'w-25'
-                            ]];
+							]];
+					}
+				}
+			],
+			[
+				'label' => 'Tags',
+				'attribute' => 'tags',
+				'value' => function ($model) {
+					if (is_array($model->tags)) {
+                        $tagArray = \yii\helpers\ArrayHelper::getColumn($model->tags, 'id');
+                        Yii::debug($tagArray);
+						return implode(', ', $tagArray);
+					}
+
+					return $model->tags;
+				},
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
 					}
 				}
 			],

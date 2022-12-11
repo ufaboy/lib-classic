@@ -13,6 +13,7 @@ class TableAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+
     public $css = [
         'css/table.css',
     ];

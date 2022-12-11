@@ -30,6 +30,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class Book extends \yii\db\ActiveRecord
 {
+	public array $tags = [];
     /**
      * {@inheritdoc}
      */
@@ -54,6 +55,7 @@ class Book extends \yii\db\ActiveRecord
         return [
             [['text'], 'string'],
             [['view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
+			[['tags'], 'safe'],
             [['name', 'cover'], 'string', 'max' => 255],
             [['description', 'source'], 'string', 'max' => 1024],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Author::className(), 'targetAttribute' => ['author_id' => 'id']],
@@ -83,7 +85,18 @@ class Book extends \yii\db\ActiveRecord
             'last_read' => 'Last Read',
         ];
     }
+	public function afterSave($insert, $changedAttributes) {
+		// If this is not a new record, unlink all records related through relationship 'activities'
+		if(!$this->isNewRecord) {
+			$this->unlinkAll('tags', true);
+		}
+		foreach($this->tags as $tag_id) {
+			$tag = Tag::findOne($tag_id);
+			$this->link('tags', $tag);
+		}
 
+		parent::afterSave($insert, $changedAttributes);
+	}
     /**
      * Gets query for [[Author]].
      *

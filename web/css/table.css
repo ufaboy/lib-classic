@@ -69,4 +69,7 @@
     .table td {
         color: #ffffff;
     }
+    td[data-title]:before {
+        color: #ffffff;
+    }
 }

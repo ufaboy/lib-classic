@@ -1,10 +1,12 @@
 <?php
 
+//use app\assets\FirebaseInitAsset;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Book */
 
+//FirebaseInitAsset::register($this);
 $this->title = 'Create Book';
 $this->params['breadcrumbs'][] = ['label' => 'Books', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

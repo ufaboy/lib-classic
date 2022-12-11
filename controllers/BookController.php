@@ -2,8 +2,14 @@
 
 namespace app\controllers;
 
+use Exception;
+use Yii;
+use yii\base\Model;
 use app\models\Book;
 use app\models\BookSearch;
+use app\models\BookTag;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,8 +61,11 @@ class BookController extends Controller
      */
     public function actionView($id)
     {
+		$model = $this->findModel($id);
+		$model->touch('last_read');
+		$model->updateCounters(['view_count' => 1]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model
         ]);
     }
 
@@ -67,19 +76,28 @@ class BookController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Book();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+		$request = $this->request;
+		$model = new Book();
+		if (!$request->isPost) {
+			return false;
+		}
+			$transaction = Yii::$app->db->beginTransaction();
+			try {
+				$post = $request->post();
+				$model->load($post);
+				$model->save();
+				foreach ($post['tag_ids'] as $key => $value) {
+					$book_tag = new BookTag();;
+					$book_tag->book_id = $model->id;
+					$book_tag->tag_id = $value;
+					$book_tag->save();
+				}
+				$transaction->commit();
+				return $this->redirect(['view', 'id' => $model->id]);
+			} catch (Exception $ex) {
+				$transaction->rolback();
+				Yii::$app->session->setFlash("error", $ex->getMessage());
+			}
     }
 
     /**
@@ -92,9 +110,8 @@ class BookController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

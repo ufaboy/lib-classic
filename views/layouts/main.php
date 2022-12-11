@@ -81,7 +81,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => 'fa
         </div>
     </div>
 </footer>-->
-<a id="scrollUp" href="#top" title="Scroll to top" style="position: fixed; z-index: 2147483647; display: block;"></a>
+<a id="scrollUp" href="#top" title="Scroll to top" style="position: fixed; z-index: 2147483647; display: none;"></a>
 <?php $this->endBody() ?>
 </body>
 </html>
