@@ -78,9 +78,7 @@ class BookController extends Controller
     {
 		$request = $this->request;
 		$model = new Book();
-		if (!$request->isPost) {
-			return false;
-		}
+		if ($this->request->isPost) {
 			$transaction = Yii::$app->db->beginTransaction();
 			try {
 				$post = $request->post();
@@ -98,6 +96,13 @@ class BookController extends Controller
 				$transaction->rolback();
 				Yii::$app->session->setFlash("error", $ex->getMessage());
 			}
+		} else {
+			$model->loadDefaultValues();
+		}
+
+		return $this->render('create', [
+			'model' => $model,
+		]);
     }
 
     /**

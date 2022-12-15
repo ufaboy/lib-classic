@@ -24,12 +24,20 @@ function touchEnd(e) {
 
 function showForm() {
     $('.book-search').css('display', 'flex');
+    $('.form-book').on('reset', () => hideForm());
+    $('body').on('keyup', e => {
+        if (e.key === "Escape") hideForm();
+    });
+}
+function hideForm() {
+    $('.book-search').css('display', 'none');
+    $('.form-book').unbind()
+    $('body').unbind()
 }
 
 document.addEventListener('touchstart', touchStart, false);
 document.addEventListener('touchend', touchEnd, false);
 
-$('.form-book').on('reset', () => {
-    $('.book-search').css('display', 'none');
-});
+
+
 $('#show-filter').click(showForm);

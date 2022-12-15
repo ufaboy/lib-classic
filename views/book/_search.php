@@ -25,9 +25,9 @@ use yii\widgets\ActiveForm;
     4 => 'Good',
     5 => 'Excellent',
     ] ?>
-    <?= $form->field($model, 'id') ?>
+	<?php // $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
 
     <?php // $form->field($model, 'description') ?>
 
