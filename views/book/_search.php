@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 			'class' => 'form-book'
         ],
     ]); ?>
-	<?= $ratings = [
+	<?php $ratings = [
     1 => 'Bad',
     2 => 'Poor',
     3 => 'Fair',
