@@ -28,9 +28,29 @@
     align-items: center;
 }
 
+.form-sort-book {
+    display: none;
+}
+
+.icon-asc {
+    display: none;
+}
+
+.btn-asc .icon-asc {
+    display: block;
+}
+.btn-asc .icon-desc {
+    display: none;
+}
+
 @media (max-width: 992px) {
     .create-book-wrapper {
         display: none;
+    }
+
+    .form-sort-book {
+        display: flex;
+        flex-flow: row nowrap;
     }
 }
 

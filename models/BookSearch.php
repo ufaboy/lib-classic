@@ -50,6 +50,11 @@ public string $tag_name = '';
 		$query->joinWith('tags');
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
+			'sort' => [
+				'defaultOrder' => [
+					'updated_at' => SORT_DESC,
+				],
+			],
 		]);
 		$this->load($params);
 
@@ -84,6 +89,10 @@ public string $tag_name = '';
 //			->andFilterWhere(['like', Tag::tableName() . '.name', $this->getAttribute('tag_name')]);
 
 		$query->groupBy(['id']);
+		$dataProvider->sort->attributes['tags'] = [
+			'asc' => ['tag.name' => SORT_ASC],
+			'desc' => ['tag.name' => SORT_DESC],
+		];
 		$dataProvider->sort->attributes['author.name'] = [
 			'asc' => ['author.name' => SORT_ASC],
 			'desc' => ['author.name' => SORT_DESC],
@@ -92,7 +101,6 @@ public string $tag_name = '';
 			'asc' => ['series.name' => SORT_ASC],
 			'desc' => ['series.name' => SORT_DESC],
 		];
-
 		return $dataProvider;
 	}
 }

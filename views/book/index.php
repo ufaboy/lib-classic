@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?php Pjax::begin(); ?>
 	<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+<!--	--><?php //echo $this->render('_sort_form', ['model' => $searchModel]); ?>
 
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
@@ -67,14 +68,20 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'label' => 'Tags',
 				'attribute' => 'tags',
-				'value' => function ($model) {
+				'value' => function($model) {
+					$tagNames = array();
+					foreach ($model->tags as $tag) {
+						$tagNames[] = $tag->name;
+					}
+					return implode("\n", $tagNames);
+				},
+/*				'value' => function ($model) {
 					if (is_array($model->tags)) {
                         $tagArray = ArrayHelper::getColumn($model->tags, 'name');
 						return implode(', ', $tagArray);
 					}
-
 					return $model->tags;
-				},
+				},*/
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
 						return ['data-title' => $column->label];
