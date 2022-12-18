@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?php Pjax::begin(); ?>
 	<?php echo $this->render('_search', ['model' => $searchModel]); ?>
-<!--	--><?php //echo $this->render('_sort_form', ['model' => $searchModel]); ?>
+    <!--	--><?php //echo $this->render('_sort_form', ['model' => $searchModel]); ?>
 
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
@@ -66,25 +66,28 @@ $this->params['breadcrumbs'][] = $this->title;
 							]];
 					}
 				},
-                'headerOptions' => [
+				'headerOptions' => [
 					'class' => 'mobile-hide'
-                ]
+				],
+				'filterOptions' => [
+					'class' => 'mobile-hide'
+				],
 			],
 			[
 				'label' => 'Tags',
 				'attribute' => 'tags',
-				'value' => function($model) {
+				'value' => function ($model) {
 					$tagNames = array();
 					foreach ($model->tags as $tag) {
 						$tagNames[] = $tag->name;
 					}
 					return implode(', ', $tagNames);
 				},
-                'filterAttribute' => 'tag',
+				'filterAttribute' => 'tag',
 				'filter' => Tag::find()->select(['name', 'id'])->indexBy('id')->column(),
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
-						return ['data-title' => $column->label];
+						return ['data-title' => $column->label, 'prompt' => 'Select Tag'];
 					}
 				}
 			],
@@ -148,7 +151,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 				'headerOptions' => [
 					'class' => 'mobile-hide'
-				]
+				],
+				'filterOptions' => [
+					'class' => 'mobile-hide'
+				],
 			],
 			[
 				'class' => ActionColumn::className(),

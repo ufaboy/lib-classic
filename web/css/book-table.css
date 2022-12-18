@@ -55,7 +55,7 @@
 }
 @media (max-width: 992px) {
     .table .mobile-hide  {
-        /*display: none;*/
+        display: none;
     }
 }
 @media (prefers-color-scheme: dark) {
