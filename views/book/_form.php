@@ -3,20 +3,17 @@
 use app\models\Author;
 use app\models\Series;
 use app\models\Tag;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Book */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $ratings array */
 ?>
 
 <div class="book-form">
 	<?=
-	$tags = ArrayHelper::map(Tag::find()->select('id, name')->all(), 'id', 'name');
-	$authors = ArrayHelper::map(Author::find()->select('id, name')->all(), 'id', 'name');
-	$series = ArrayHelper::map(Series::find()->select('id, name')->all(), 'id', 'name');
 	$ratings = [
 		1 => 'Bad',
 		2 => 'Poor',
@@ -42,15 +39,18 @@ use yii\widgets\ActiveForm;
 	<?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'tag_ids')->dropdownList(
-		$tags, ['prompt' => 'Select Tags', 'label' => 'name', 'multiple' => true,]
+		Tag::find()->select(['name', 'id'])->indexBy('id')->column(),
+        ['prompt' => 'Select Tags', 'label' => 'name', 'multiple' => true,]
 	) ?>
 
 	<?= $form->field($model, 'author_id')->dropdownList(
-		$authors, ['prompt' => 'Select Author', 'label' => 'name']
+		Author::find()->select(['name', 'id'])->indexBy('id')->column(),
+        ['prompt' => 'Select Author', 'label' => 'name']
 	) ?>
 
 	<?= $form->field($model, 'series_id')->dropdownList(
-		$series, ['prompt' => 'Select Series', 'label' => 'name']
+		Series::find()->select(['name', 'id'])->indexBy('id')->column(),
+        ['prompt' => 'Select Series', 'label' => 'name']
 	) ?>
 
 
