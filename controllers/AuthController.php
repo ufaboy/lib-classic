@@ -7,9 +7,6 @@ use app\models\User;
 use yii\web\BadRequestHttpException;
 
 class AuthController extends \yii\web\Controller {
-	public function actionIndex() {
-		return $this->render('index');
-	}
 
 	public function actionLogin() {
 		$data = Yii::$app->request->post();

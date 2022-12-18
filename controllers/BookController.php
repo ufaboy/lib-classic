@@ -10,6 +10,7 @@ use app\models\BookSearch;
 use app\models\BookTag;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,6 +28,16 @@ class BookController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+				'access' => [
+					'class' => AccessControl::class,
+					'rules' => [
+						[
+							'allow' => true,
+							'actions' => ['index', 'create', 'view', 'update', 'delete'],
+							'roles' => ['@'],
+						],
+					],
+				],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
