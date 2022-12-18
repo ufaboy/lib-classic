@@ -1,5 +1,7 @@
 <?php
 
+use app\models\Author;
+use app\models\Series;
 use app\models\Tag;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -49,9 +51,12 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'cover') ?>
 
-    <?php echo $form->field($model, 'author.name')->label('Author') ?>
+    <?php echo $form->field($model, 'author.name')->label('Author')->dropDownList(
+		Author::find()->select(['name'])->indexBy('name')->column(), ['prompt' => 'Select Author']) ?>
 
-    <?php echo $form->field($model, 'series.name')->label('Series') ?>
+    <?php echo $form->field($model, 'series.name')->label('Series')
+		->dropDownList(
+			Series::find()->select(['name'])->indexBy('name')->column(), ['prompt' => 'Select Series']) ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
