@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Tag;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -39,7 +40,8 @@ use yii\widgets\ActiveForm;
 		$ratings, ['prompt' => 'Select Rating']
 	) ?>
 
-    <?php  echo $form->field($model, 'tag_name') ?>
+    <?php  echo $form->field($model, 'tag')->dropDownList(
+		Tag::find()->select(['name', 'id'])->indexBy('id')->column(), ['prompt' => 'Select Tag']) ?>
 
     <?php // echo $form->field($model, 'bookmark') ?>
 

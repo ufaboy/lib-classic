@@ -10,7 +10,7 @@ use app\models\Book;
  * BookSearch represents the model behind the search form of `app\models\Book`.
  */
 class BookSearch extends Book {
-public string $tag_name = '';
+public string $tag = '';
 	public function attributes() {
 		return array_merge(parent::attributes(), ['author.name', 'series.name']);
 	}
@@ -21,7 +21,7 @@ public string $tag_name = '';
 	public function rules() {
 		return [
 			[['id', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
-			[['name', 'description', 'text', 'source', 'cover', 'tag_name', 'author.name', 'series.name'], 'safe'],
+			[['name', 'description', 'text', 'source', 'cover', 'tag', 'author.name', 'series.name'], 'safe'],
 		];
 	}
 
@@ -70,6 +70,7 @@ public string $tag_name = '';
 			'book.view_count' => $this->view_count,
 			'book.rating' => $this->rating,
 			'book.bookmark' => $this->bookmark,
+			'tag.id' => $this->tag,
 			'author_id' => $this->author_id,
 			'series_id' => $this->series_id,
 			'book.created_at' => $this->created_at,
@@ -83,9 +84,9 @@ public string $tag_name = '';
 			->andFilterWhere(['like', 'book.source', $this->source])
 			->andFilterWhere(['like', 'book.cover', $this->cover])
 			->andFilterWhere(['like', 'author.name', $this->getAttribute('author.name')])
-			->andFilterWhere(['like', 'series.name', $this->getAttribute('series.name')])
+			->andFilterWhere(['like', 'series.name', $this->getAttribute('series.name')]);
 //			->andFilterWhere(['like', Tag::tableName() . '.name', $params['tag']]);
-			->andFilterWhere(['like', Tag::tableName() . '.name', $this->tag_name]);
+//			->andFilterWhere(['like', Tag::tableName() . '.name', $this->tag_name]);
 //			->andFilterWhere(['like', Tag::tableName() . '.name', $this->getAttribute('tag_name')]);
 
 		$query->groupBy(['id']);
