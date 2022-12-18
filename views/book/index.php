@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Author;
+use app\models\Tag;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -60,10 +61,13 @@ $this->params['breadcrumbs'][] = $this->title;
 					{
 						return ['data-title' => $column->label,
 							'class' => [
-								'text-truncate', 'w-25'
+								'text-truncate', 'w-25', 'mobile-hide'
 							]];
 					}
-				}
+				},
+                'headerOptions' => [
+					'class' => 'mobile-hide'
+                ]
 			],
 			[
 				'label' => 'Tags',
@@ -73,15 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
 					foreach ($model->tags as $tag) {
 						$tagNames[] = $tag->name;
 					}
-					return implode("\n", $tagNames);
+					return implode(', ', $tagNames);
 				},
-/*				'value' => function ($model) {
-					if (is_array($model->tags)) {
-                        $tagArray = ArrayHelper::getColumn($model->tags, 'name');
-						return implode(', ', $tagArray);
-					}
-					return $model->tags;
-				},*/
+                'filterAttribute' => 'tag',
+				'filter' => Tag::find()->select(['name', 'id'])->indexBy('id')->column(),
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
 						return ['data-title' => $column->label];
@@ -140,9 +139,12 @@ $this->params['breadcrumbs'][] = $this->title;
 				'format' => ['date', 'php:Y-m-d'],
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
-						return ['data-title' => $column->label];
+						return ['data-title' => $column->label, 'class' => 'mobile-hide'];
 					}
-				}
+				},
+				'headerOptions' => [
+					'class' => 'mobile-hide'
+				]
 			],
 			[
 				'class' => ActionColumn::className(),
