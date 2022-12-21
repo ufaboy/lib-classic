@@ -1,21 +1,50 @@
 <?php
 
+use app\models\Upload;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use app\assets\BookUpdateAsset;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Book */
-
-$this->title = 'Update Book: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Books', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+/* @var $uploadModel app\models\Upload */
+BookUpdateAsset::register($this);
+$uploadModel = new Upload;
 ?>
 <div class="book-update">
+    <div class="left">
+		<?= $this->render('_form', [
+			'model' => $model,
+		]) ?>
+    </div>
+    <div id="storage-manager" class="right" v-scope="">
+<!--		--><?php /*$this->render('@app/views/storage/upload', [
+			'book_id' => $model->id,
+			'model' => $uploadModel,
+		]) */?>
+<!--		<?php /*$form = ActiveForm::begin(['action' => '/upload', 'options' => ['enctype' => 'multipart/form-data']]) */?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+		<?/*= $form->field($uploadModel, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) */?>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+        <button>Submit</button>
+
+		--><?php /*ActiveForm::end() */?>
+        <form method="post" enctype="multipart/form-data" @submit.prevent="uploadFiles">
+            <label class="upload-btn" >
+                <span>Load images</span>
+                <input type="file" multiple hidden name="Upload[imageFiles][]" @input="inputFiles"
+                       accept="image/png, image/jpeg, image/webp">
+            </label>
+            <button>Upload</button>
+        </form>
+        <div class="images">
+            <ul>
+                <li v-for="(image, index) in images">
+                    {{image.name}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
 
 </div>

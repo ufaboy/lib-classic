@@ -3,23 +3,15 @@
 namespace app\controllers;
 
 use app\models\Storage;
-use Exception;
-use Yii;
-use yii\base\Model;
-use app\models\Book;
-use app\models\BookSearch;
-use app\models\BookTag;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
-use yii\filters\AccessControl;
+use app\models\StorageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BookController implements the CRUD actions for Book model.
+ * StorageController implements the CRUD actions for Storage model.
  */
-class BookController extends Controller
+class StorageController extends Controller
 {
     /**
      * @inheritDoc
@@ -29,16 +21,6 @@ class BookController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-				'access' => [
-					'class' => AccessControl::class,
-					'rules' => [
-						[
-							'allow' => true,
-							'actions' => ['index', 'create', 'view', 'update', 'delete'],
-							'roles' => ['@'],
-						],
-					],
-				],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -50,13 +32,13 @@ class BookController extends Controller
     }
 
     /**
-     * Lists all Book models.
+     * Lists all Storage models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new BookSearch();
+        $searchModel = new StorageSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -66,59 +48,42 @@ class BookController extends Controller
     }
 
     /**
-     * Displays a single Book model.
+     * Displays a single Storage model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-		$model = $this->findModel($id);
-		$model->touch('last_read');
-		$model->updateCounters(['view_count' => 1]);
         return $this->render('view', [
-            'model' => $model
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Book model.
+     * Creates a new Storage model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-		$request = $this->request;
-		$model = new Book();
-		if ($this->request->isPost) {
-			$transaction = Yii::$app->db->beginTransaction();
-			try {
-				$post = $request->post();
-				$model->load($post);
-				$model->save();
-				foreach ($post['tag_ids'] as $key => $value) {
-					$book_tag = new BookTag();;
-					$book_tag->book_id = $model->id;
-					$book_tag->tag_id = $value;
-					$book_tag->save();
-				}
-				$transaction->commit();
-				return $this->redirect(['view', 'id' => $model->id]);
-			} catch (Exception $ex) {
-				$transaction->rolback();
-				Yii::$app->session->setFlash("error", $ex->getMessage());
-			}
-		} else {
-			$model->loadDefaultValues();
-		}
+        $model = new Storage();
 
-		return $this->render('create', [
-			'model' => $model,
-		]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing Book model.
+     * Updates an existing Storage model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -127,21 +92,18 @@ class BookController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-		$model->tag_ids = $model->tags;
-		$modelStorage = new Storage();
 
-		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'modelStorage' => $modelStorage,
         ]);
     }
 
     /**
-     * Deletes an existing Book model.
+     * Deletes an existing Storage model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -155,15 +117,15 @@ class BookController extends Controller
     }
 
     /**
-     * Finds the Book model based on its primary key value.
+     * Finds the Storage model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Book the loaded model
+     * @return Storage the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Book::findOne(['id' => $id])) !== null) {
+        if (($model = Storage::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

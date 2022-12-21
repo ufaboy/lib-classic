@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 
+use app\models\Storage;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -11,6 +12,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -116,6 +118,20 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+	public function actionUpload()
+	{
+		$model = new Storage();
+
+		if (Yii::$app->request->isPost) {
+			$model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+			if ($model->upload()) {
+				// file is uploaded successfully
+				return;
+			}
+		}
+
+		return $this->render('upload', ['model' => $model]);
+	}
 
     /**
      * Displays contact page.

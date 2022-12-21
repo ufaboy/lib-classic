@@ -3,7 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\base\ErrorException;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "book".
@@ -94,14 +96,37 @@ class Book extends \yii\db\ActiveRecord {
 			$tag = Tag::findOne($tag_id);
 			$this->link('tags', $tag);
 		}
-
+		if (array_key_exists('text', $changedAttributes)) {
+			$this->saveTextToFs();
+		}
 		parent::afterSave($insert, $changedAttributes);
+	}
+	public function saveTextToFs()
+	{
+		$filename = str_pad($this->id, 3, "0", STR_PAD_LEFT) . '.html';
+		$filePath = Yii::getAlias('@app') . '/storage/books/' . $filename;
+		file_put_contents($filePath, $this['text']);
+	}
+	public function loadDataFromFs()
+	{
+		$filename = $this->id . '.html';
+		$filePath = Yii::getAlias('@app') . '/storage/books/' . $filename;
+
+		if (file_exists($filePath)) {
+			$this->text = file_get_contents($filePath);
+			if ($this > $this->save()) {
+				return $this;
+			}
+			throw new ErrorException('Failed to save data');
+		} else {
+			throw new ErrorException('Failed to get file');
+		}
 	}
 
 	/**
 	 * Gets query for [[Author]].
 	 *
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getAuthor() {
 		return $this->hasOne(Author::className(), ['id' => 'author_id']);
@@ -110,7 +135,7 @@ class Book extends \yii\db\ActiveRecord {
 	/**
 	 * Gets query for [[BookTags]].
 	 *
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getBookTags() {
 		return $this->hasMany(BookTag::className(), ['book_id' => 'id']);
@@ -119,7 +144,7 @@ class Book extends \yii\db\ActiveRecord {
 	/**
 	 * Gets query for [[Series]].
 	 *
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getSeries() {
 		return $this->hasOne(Series::className(), ['id' => 'series_id']);
@@ -128,9 +153,19 @@ class Book extends \yii\db\ActiveRecord {
 	/**
 	 * Gets query for [[Tags]].
 	 *
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getTags() {
 		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('book_tag', ['book_id' => 'id']);
+	}
+
+	/**
+	 * Gets query for [[MediaStorage]].
+	 *
+	 * @return ActiveQuery
+	 */
+	public function getStorages(): ActiveQuery
+	{
+		return $this->hasMany(Storage::class, ['book_id' => 'id']);
 	}
 }

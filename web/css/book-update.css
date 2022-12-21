@@ -1,0 +1,18 @@
+.book-update {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.book-update .left {
+    width: 65%;
+}
+.book-update .right {
+    width: 30%;
+}
+
+.book-update .upload-btn {
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
