@@ -10,6 +10,7 @@ use app\assets\BookUpdateAsset;
 /* @var $uploadModel app\models\Upload */
 BookUpdateAsset::register($this);
 $uploadModel = new Upload;
+$this->registerJsVar('storages', $model->storages);
 ?>
 <div class="book-update">
     <div class="left">

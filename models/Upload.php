@@ -34,21 +34,31 @@ class Upload extends Model {
 				FileHelper::createDirectory($pathDir);
 			}
 			foreach ($this->imageFiles as $file) {
-				$model = new Storage();
+				$model = $this->findOrCreateStorage($this->book_id, $file->baseName);
 				$filename = $file->baseName . '.' . $file->extension;
 				$file->saveAs($pathDir . '/' . $filename);
 				$imageArray[] = ['name' => $filename, 'url' => '/media/' . $fileDir . '/' . $filename];
-				$model->file_name = $filename;
+				$model->file_name = $file->baseName;
 				$model->extension = $file->extension;
-				$model->size = $filename;
+				$model->size = $file->size;
 				$model->path = 'media/' . $fileDir;
 				$model->book_id = $this->book_id;
-				$model->save();
+				if (!$model->save()) {
+					Yii::debug($model);
+				}
 			}
 			return $imageArray;
 		} else {
 			Yii::debug('validate error');
 			return $this->imageFiles;
+		}
+	}
+
+	protected function findOrCreateStorage($book_id, $filename) {
+		if (($model = Storage::findOne(['book_id' => $book_id, 'file_name' => $filename])) !== null) {
+			return $model;
+		} else {
+			return new Storage();
 		}
 	}
 }

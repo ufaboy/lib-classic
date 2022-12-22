@@ -6,6 +6,9 @@ createApp({
             images: [],
         }
     },
+    mounted() {
+        console.log('storages', storages)
+    },
     methods: {
         inputFiles(evt) {
             const fileList = evt.target.files

@@ -6,6 +6,7 @@ use Yii;
 use yii\base\ErrorException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "book".
@@ -29,10 +30,10 @@ use yii\db\ActiveQuery;
  * @property BookTag[] $bookTags
  * @property Series $series
  * @property Tag[] $tags
- * @property int[]|null $tag_ids
+ * @property Tag[]|null $tag_ids
  */
 class Book extends \yii\db\ActiveRecord {
-	public $tag_ids = [];
+	public $tag_ids;
 
 	/**
 	 * {@inheritdoc}
@@ -100,6 +101,13 @@ class Book extends \yii\db\ActiveRecord {
 			$this->saveTextToFs();
 		}
 		parent::afterSave($insert, $changedAttributes);
+	}
+	public function afterFind(){
+		parent::afterFind();
+//		$this->tag_ids = ArrayHelper::getColumn($this->tags, 'id');
+//		$this->tag_ids = ArrayHelper::map($this->tags, 'id', 'name');
+//		$this->tag_ids = $this->getTags()->select('id', 'name')->all();
+		$this->tag_ids = $this->tags;
 	}
 	public function saveTextToFs()
 	{
