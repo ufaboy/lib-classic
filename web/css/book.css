@@ -1,0 +1,91 @@
+h1, h2, h3 {
+    text-align: center;
+}
+
+h1 {
+    margin: 0 0 1rem 0;
+}
+
+h2, h3 {
+    margin: 1rem 0;
+}
+
+.book-view {
+    max-width: 900px;
+    position: relative;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+    padding: 0 1rem;
+}
+
+p {
+    word-break: break-word;
+    padding: initial;
+    text-indent: 1rem;
+    margin: 0 0 0.3rem;
+}
+
+span[data-tooltip]:hover {
+    color: crimson;
+}
+
+.picture-group {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.picture {
+    object-fit: cover;
+    border-radius: 0.75rem;
+}
+
+.illustrations {
+    display: flex;
+    flex: 1;
+
+}
+
+.progress-line {
+    position: fixed;
+    width: 3px;
+    left: 0;
+    top: 0;
+    background-color: var(--bs-green);
+}
+
+@media only screen and (max-width: 892px) {
+    .book-view {
+        max-width: initial;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 892px) and (orientation: landscape) {
+    .picture, .video {
+        float: left;
+        margin: 0 0.5rem 0.5rem 0;
+        max-width: 394px;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 892px) and (orientation: portrait) {
+    .picture, .video {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 893px) and (max-width: 1368px) {
+    .picture, .video {
+        float: left;
+        width: 375px;
+        margin: 0.5rem 1rem 0.5rem 0;
+    }
+}
+
+@media only screen and (min-width: 1368px) {
+    .picture, .video {
+        float: left;
+        width: 375px;
+        margin: 0.5rem 1rem 0.5rem 0;
+    }
+}

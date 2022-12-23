@@ -11,17 +11,17 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $ratings array */
 ?>
-
+<?php
+$ratings = [
+	1 => 'Bad',
+	2 => 'Poor',
+	3 => 'Fair',
+	4 => 'Good',
+	5 => 'Excellent',
+]
+?>
 <div class="book-form">
-	<?=
-	$ratings = [
-		1 => 'Bad',
-		2 => 'Poor',
-		3 => 'Fair',
-		4 => 'Good',
-		5 => 'Excellent',
-	]
-	?>
+
 	<?php $form = ActiveForm::begin(); ?>
 
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

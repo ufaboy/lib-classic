@@ -16,3 +16,29 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.image-element {
+    position: relative;
+}
+.preview {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: -8rem;
+    height: 100px;
+    object-fit: cover;
+}
+.copy-btn {
+    width: 100%;
+}
+.copy-btn:hover + .preview {
+    display: block;
+}
+.upload-btn + .upload-btn {
+    margin-left: 5px;
+}
+.images-wrapper {
+    margin-top: 1rem;
+}
+.image-element + .image-element {
+    margin-top: 5px;
+}

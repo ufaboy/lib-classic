@@ -36,14 +36,17 @@ $this->registerJsVar('storages', $model->storages);
                 <input type="file" multiple hidden name="Upload[imageFiles][]" @input="inputFiles"
                        accept="image/png, image/jpeg, image/webp">
             </label>
-            <button>Upload</button>
+            <button class="upload-btn">Upload</button>
         </form>
-        <div class="images">
-            <ul>
-                <li v-for="(image, index) in images">
-                    {{image.name}}
+        <div class="images-wrapper">
+            <ol class="images">
+                <li v-for="(image, index) in images" :key="index" class="image-element">
+                    <button class="copy-btn btn"
+                            :class="{'btn-outline-primary': !image.id, 'btn-outline-success': image.id }"
+                            @click="copyUrl(image)">{{getName(image)}}</button>
+                    <img :src="getUrl(image)" class="preview">
                 </li>
-            </ul>
+            </ol>
         </div>
     </div>
 

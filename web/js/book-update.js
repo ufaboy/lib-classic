@@ -7,6 +7,7 @@ createApp({
         }
     },
     mounted() {
+        this.images = storages
         console.log('storages', storages)
     },
     methods: {
@@ -14,7 +15,7 @@ createApp({
             const fileList = evt.target.files
             if (fileList) {
                 for (const file of Array.from(fileList)) {
-                    this.images.push({name: file.name, status: '', file: file})
+                    this.images.push(file)
                 }
             }
         },
@@ -25,7 +26,24 @@ createApp({
                 body: new FormData(e.target)
             });
             let result = await response.json();
+            this.images = result
+            // if (Array.isArray(result)) {
+            //     for (const elem of result) {
+            //         this.images
+            //     }
+            // }
             console.log('uploadFiles', {result: result})
+        },
+        getName(image) {
+            return image.id ? `${image.file_name}.${image.extension}` : image.name
+        },
+        getUrl(image) {
+            return image.id ? `/${image.path}/${image.file_name}.${image.extension}` : window.URL.createObjectURL(image);
+        },
+        async copyUrl(image) {
+            const path = `${image.path}/${image.file_name}.${image.extension}`
+            console.log('copyUrl', navigator, image, path)
+            await navigator.clipboard.writeText(`<img class="picture" src="/${path}">`)
         }
     }
 }).mount('#storage-manager')

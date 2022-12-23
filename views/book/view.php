@@ -9,8 +9,6 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Book */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Books', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 BookAsset::register($this);
 ?>
@@ -26,25 +24,5 @@ BookAsset::register($this);
         ]) */?>
     </p>-->
     <div><?= $model->text ?></div>
-
-<!--    DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'description',
-            'text:ntext',
-            'view_count',
-            'rating',
-            'bookmark',
-            'source',
-            'cover',
-            'author_id',
-            'series_id',
-            'created_at',
-            'updated_at',
-            'last_read',
-        ],
-    ])-->
 
 </div>

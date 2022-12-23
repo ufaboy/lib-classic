@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Exception;
 use yii\base\Model;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
@@ -25,6 +26,9 @@ class Upload extends Model {
 		];
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function upload() {
 		if ($this->validate()) {
 			$imageArray = [];
@@ -37,13 +41,14 @@ class Upload extends Model {
 				$model = $this->findOrCreateStorage($this->book_id, $file->baseName);
 				$filename = $file->baseName . '.' . $file->extension;
 				$file->saveAs($pathDir . '/' . $filename);
-				$imageArray[] = ['name' => $filename, 'url' => '/media/' . $fileDir . '/' . $filename];
 				$model->file_name = $file->baseName;
 				$model->extension = $file->extension;
 				$model->size = $file->size;
 				$model->path = 'media/' . $fileDir;
 				$model->book_id = $this->book_id;
-				if (!$model->save()) {
+				if ($model->save()) {
+					$imageArray[] = $model;
+				} else {
 					Yii::debug($model);
 				}
 			}

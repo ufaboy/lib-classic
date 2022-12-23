@@ -2,9 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\Upload;
+use app\models\Storage;
 use Yii;
 use yii\rest\Controller;
+use app\models\Upload;
 use yii\web\UploadedFile;
 
 class UploadController extends Controller {
@@ -20,7 +21,11 @@ class UploadController extends Controller {
 		if (Yii::$app->request->isPost) {
 			$model->load($query, '');
 			$model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
-			return $model->upload();
+			$result = $model->upload();
+			if ($result) {
+				return Storage::findAll(['book_id' => $model->book_id]);
+			} else return $result;
+
 		} return false;
 	}
 }
