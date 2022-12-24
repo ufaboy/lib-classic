@@ -41,6 +41,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => 'fa
 		['label' => 'Author', 'url' => ['/author']],
 		['label' => 'Series', 'url' => ['/series']],
 		['label' => 'Book', 'url' => ['/book']],
+		['label' => 'Storage', 'url' => ['/storage']],
 	];
 	if (Yii::$app->user->isGuest) {
 		$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
