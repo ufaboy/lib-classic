@@ -32,7 +32,7 @@ class Upload extends Model {
 	public function upload() {
 		if ($this->validate()) {
 			$imageArray = [];
-			$fileDir = 'book_' . $this->book_id;
+			$fileDir = 'book_' . str_pad($this->book_id, 3, "0", STR_PAD_LEFT);
 			$pathDir = Yii::getAlias('@app') . '/storage/media/' . $fileDir;
 			if (!is_dir($pathDir)) {
 				FileHelper::createDirectory($pathDir);

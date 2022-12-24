@@ -43,9 +43,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => 'fa
 		['label' => 'Book', 'url' => ['/book']],
 		['label' => 'Storage', 'url' => ['/storage']],
 	];
-	if (Yii::$app->user->isGuest) {
+/*	if (Yii::$app->user->isGuest) {
 		$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-	}
+	}*/
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
 		'items' => $menuItems,

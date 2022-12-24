@@ -6,12 +6,13 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\assets\TableAsset;
 /** @var yii\web\View $this */
 /** @var app\models\StorageSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Storages';
-$this->params['breadcrumbs'][] = $this->title;
+TableAsset::register($this);
 ?>
 <div class="storage-index">
 
@@ -27,14 +28,64 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+		'tableOptions' => [
+			'class' => 'table table-bordered'
+		],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'file_name',
-            'extension',
-            'size',
-            'path',
+			[
+				'label' => 'ID',
+				'attribute' => 'id',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Name',
+				'attribute' => 'file_name',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Ext',
+				'attribute' => 'extension',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Size',
+				'attribute' => 'size',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Path',
+				'attribute' => 'path',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
+			[
+				'label' => 'Book',
+				'attribute' => 'book.name',
+				'contentOptions' => function ($model, $key, $index, $column) {
+					{
+						return ['data-title' => $column->label];
+					}
+				}
+			],
             //'book_id',
             [
                 'class' => ActionColumn::className(),
