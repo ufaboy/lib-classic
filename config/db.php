@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=db-second;port=3306;dbname=library',
-    'username' => 'editor',
-    'password' => 'editor',
+	'dsn' => $_ENV['DB_DSN'],
+	'username' => $_ENV['DB_USERNAME'],
+	'password' => $_ENV['DB_PASSWORD'],
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
