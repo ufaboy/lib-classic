@@ -2,17 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\Storage;
-use app\models\StorageSearch;
+use app\models\Media;
+use app\models\MediaSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * StorageController implements the CRUD actions for Storage model.
+ * MediaController implements the CRUD actions for Media model.
  */
-class StorageController extends Controller
+class MediaController extends Controller
 {
     /**
      * @inheritDoc
@@ -43,13 +43,13 @@ class StorageController extends Controller
     }
 
     /**
-     * Lists all Storage models.
+     * Lists all Media models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new StorageSearch();
+        $searchModel = new MediaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -59,7 +59,7 @@ class StorageController extends Controller
     }
 
     /**
-     * Displays a single Storage model.
+     * Displays a single Media model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -72,13 +72,13 @@ class StorageController extends Controller
     }
 
     /**
-     * Creates a new Storage model.
+     * Creates a new Media model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Storage();
+        $model = new Media();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -94,7 +94,7 @@ class StorageController extends Controller
     }
 
     /**
-     * Updates an existing Storage model.
+     * Updates an existing Media model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -114,7 +114,7 @@ class StorageController extends Controller
     }
 
     /**
-     * Deletes an existing Storage model.
+     * Deletes an existing Media model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -128,15 +128,15 @@ class StorageController extends Controller
     }
 
     /**
-     * Finds the Storage model based on its primary key value.
+     * Finds the Media model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Storage the loaded model
+     * @return Media the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Storage::findOne(['id' => $id])) !== null) {
+        if (($model = Media::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

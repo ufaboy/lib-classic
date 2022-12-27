@@ -1,5 +1,4 @@
 import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
-
 createApp({
     data() {
         return {
@@ -41,7 +40,7 @@ createApp({
             return image.id ? `/${image.path}/${image.file_name}.${image.extension}` : window.URL.createObjectURL(image);
         },
         async copyUrl(image) {
-            const path = `${image.path}/${image.file_name}.${image.extension}`
+            const path = `${image.path}/${image.file_name}`
             console.log('copyUrl', navigator, image, path)
             await navigator.clipboard.writeText(`<img class="picture" src="/${path}">`)
         }

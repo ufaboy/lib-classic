@@ -1,36 +1,31 @@
 <?php
 
-use app\models\Storage;
+use app\models\Media;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
-use app\assets\TableAsset;
+
 /** @var yii\web\View $this */
-/** @var app\models\StorageSearch $searchModel */
+/** @var app\models\MediaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Storages';
-TableAsset::register($this);
+$this->title = 'Media';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="storage-index">
+<div class="media-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Storage', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Media', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-		'tableOptions' => [
-			'class' => 'table table-bordered'
-		],
         'columns' => [
 			[
 				'label' => 'ID',
@@ -44,24 +39,6 @@ TableAsset::register($this);
 			[
 				'label' => 'Name',
 				'attribute' => 'file_name',
-				'contentOptions' => function ($model, $key, $index, $column) {
-					{
-						return ['data-title' => $column->label];
-					}
-				}
-			],
-			[
-				'label' => 'Ext',
-				'attribute' => 'extension',
-				'contentOptions' => function ($model, $key, $index, $column) {
-					{
-						return ['data-title' => $column->label];
-					}
-				}
-			],
-			[
-				'label' => 'Size',
-				'attribute' => 'size',
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
 						return ['data-title' => $column->label];
@@ -86,16 +63,14 @@ TableAsset::register($this);
 					}
 				}
 			],
-            //'book_id',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Storage $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Media $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

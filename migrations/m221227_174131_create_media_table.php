@@ -3,38 +3,36 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%storage}}`.
+ * Handles the creation of table `{{%media}}`.
  * Has foreign keys to the tables:
  *
  * - `{{%book}}`
  */
-class m221221_124924_create_storage_table extends Migration
+class m221227_174131_create_media_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%storage}}', [
+        $this->createTable('{{%media}}', [
             'id' => $this->primaryKey(),
             'file_name' => $this->string(),
-            'extension' => $this->string(),
-            'size' => $this->integer(),
             'path' => $this->string(),
             'book_id' => $this->integer()->notNull(),
         ]);
 
         // creates index for column `book_id`
         $this->createIndex(
-            '{{%idx-storage-book_id}}',
-            '{{%storage}}',
+            '{{%idx-media-book_id}}',
+            '{{%media}}',
             'book_id'
         );
 
         // add foreign key for table `{{%book}}`
         $this->addForeignKey(
-            '{{%fk-storage-book_id}}',
-            '{{%storage}}',
+            '{{%fk-media-book_id}}',
+            '{{%media}}',
             'book_id',
             '{{%book}}',
             'id',
@@ -49,16 +47,16 @@ class m221221_124924_create_storage_table extends Migration
     {
         // drops foreign key for table `{{%book}}`
         $this->dropForeignKey(
-            '{{%fk-storage-book_id}}',
-            '{{%storage}}'
+            '{{%fk-media-book_id}}',
+            '{{%media}}'
         );
 
         // drops index for column `book_id`
         $this->dropIndex(
-            '{{%idx-storage-book_id}}',
-            '{{%storage}}'
+            '{{%idx-media-book_id}}',
+            '{{%media}}'
         );
 
-        $this->dropTable('{{%storage}}');
+        $this->dropTable('{{%media}}');
     }
 }

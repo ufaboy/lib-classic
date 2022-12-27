@@ -4,16 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Storage $model */
+/** @var app\models\Media $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Storages', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Media', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="storage-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="media-view">
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -26,16 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'file_name',
-            'extension',
-            'size',
-            'path',
-            'book_id',
-        ],
-    ]) ?>
+    <img style="height: calc(100vh - 150px)" src="<?= '/' . $model->path . '/' . $model->file_name ?>" alt="">
 
 </div>

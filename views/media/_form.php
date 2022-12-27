@@ -4,19 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\Storage $model */
+/** @var app\models\Media $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="storage-form">
+<div class="media-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'file_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'extension')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'size')->textInput() ?>
 
     <?= $form->field($model, 'path')->textInput(['maxlength' => true]) ?>
 

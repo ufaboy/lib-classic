@@ -41,6 +41,4 @@ $('#btn-sort').click( e => {
 document.addEventListener('touchstart', touchStart, false);
 document.addEventListener('touchend', touchEnd, false);
 
-
-
 $('#show-filter').click(showForm);

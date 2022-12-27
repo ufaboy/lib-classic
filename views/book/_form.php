@@ -38,7 +38,7 @@ $ratings = [
 
 	<?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
 
-	<?= $form->field($model, 'tag_ids[]')->dropdownList(
+	<?= $form->field($model, 'tag_ids')->dropdownList(
 		Tag::find()->select(['name', 'id'])->indexBy('id')->column(),
         ['prompt' => 'Select Tags', 'label' => 'name', 'multiple' => true,]
 	) ?>

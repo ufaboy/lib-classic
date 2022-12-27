@@ -168,12 +168,12 @@ class Book extends \yii\db\ActiveRecord {
 	}
 
 	/**
-	 * Gets query for [[MediaStorage]].
+	 * Gets query for [[Media]].
 	 *
 	 * @return ActiveQuery
 	 */
-	public function getStorages(): ActiveQuery
+	public function getMedias(): ActiveQuery
 	{
-		return $this->hasMany(Storage::class, ['book_id' => 'id']);
+		return $this->hasMany(Media::class, ['book_id' => 'id']);
 	}
 }

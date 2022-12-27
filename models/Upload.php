@@ -7,7 +7,7 @@ use yii\base\Exception;
 use yii\base\Model;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
-use app\models\Storage;
+use app\models\Media;
 
 class Upload extends Model {
 	/**
@@ -38,12 +38,9 @@ class Upload extends Model {
 				FileHelper::createDirectory($pathDir);
 			}
 			foreach ($this->imageFiles as $file) {
-				$model = $this->findOrCreateStorage($this->book_id, $file->baseName);
-				$filename = $file->baseName . '.' . $file->extension;
-				$file->saveAs($pathDir . '/' . $filename);
-				$model->file_name = $file->baseName;
-				$model->extension = $file->extension;
-				$model->size = $file->size;
+				$model = $this->findOrCreateMedia($this->book_id, $file->name);
+				$file->saveAs($pathDir . '/' . $file->name);
+				$model->file_name = $file->name;
 				$model->path = 'media/' . $fileDir;
 				$model->book_id = $this->book_id;
 				if ($model->save()) {
@@ -59,11 +56,11 @@ class Upload extends Model {
 		}
 	}
 
-	protected function findOrCreateStorage($book_id, $filename) {
-		if (($model = Storage::findOne(['book_id' => $book_id, 'file_name' => $filename])) !== null) {
+	protected function findOrCreateMedia($book_id, $filename) {
+		if (($model = Media::findOne(['book_id' => $book_id, 'file_name' => $filename])) !== null) {
 			return $model;
 		} else {
-			return new Storage();
+			return new Media();
 		}
 	}
 }
