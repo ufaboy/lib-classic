@@ -7,7 +7,7 @@ use yii\base\Exception;
 use yii\base\Model;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
-use app\models\Media;
+use app\models\Image;
 
 class Upload extends Model {
 	/**
@@ -57,10 +57,10 @@ class Upload extends Model {
 	}
 
 	protected function findOrCreateMedia($book_id, $filename) {
-		if (($model = Media::findOne(['book_id' => $book_id, 'file_name' => $filename])) !== null) {
+		if (($model = Image::findOne(['book_id' => $book_id, 'file_name' => $filename])) !== null) {
 			return $model;
 		} else {
-			return new Media();
+			return new Image();
 		}
 	}
 }

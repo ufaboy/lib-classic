@@ -16,14 +16,14 @@ use yii\helpers\VarDumper;
  *
  * @property Book $book
  */
-class Media extends \yii\db\ActiveRecord
+class Image extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'media';
+        return 'image';
     }
 
     /**
@@ -64,7 +64,7 @@ class Media extends \yii\db\ActiveRecord
 			foreach ($tempFiles as $file) {
 				if (!in_array($file, $bookFiles, true )) {
 					Yii::debug(VarDumper::dumpAsString($bookFiles));
-					$mediaModel = new Media();
+					$mediaModel = new Image();
 					$mediaModel->file_name = $file;
 					$mediaModel->path = 'media/' . $dirName;
 					$mediaModel->book_id = $bookId;

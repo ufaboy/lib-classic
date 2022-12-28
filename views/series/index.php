@@ -9,15 +9,11 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SeriesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+TableAsset::register($this);
 $this->title = 'Series';
-$this->params['breadcrumbs'][] = $this->title;
 TableAsset::register($this);
 ?>
 <div class="series-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Create Series', ['create'], ['class' => 'btn btn-success']) ?>
     </p>

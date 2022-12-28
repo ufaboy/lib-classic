@@ -10,7 +10,8 @@ use app\models\Book;
  * BookSearch represents the model behind the search form of `app\models\Book`.
  */
 class BookSearch extends Book {
-public string $tag = '';
+	public string $tag = '';
+
 	public function attributes() {
 		return array_merge(parent::attributes(), ['author.name', 'series.name']);
 	}

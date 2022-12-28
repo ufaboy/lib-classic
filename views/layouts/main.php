@@ -37,11 +37,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
 	$menuItems = [
-		['label' => 'Tag', 'url' => ['/tag']],
-		['label' => 'Author', 'url' => ['/author']],
+		['label' => 'Tags', 'url' => ['/tag']],
+		['label' => 'Authors', 'url' => ['/author']],
 		['label' => 'Series', 'url' => ['/series']],
-		['label' => 'Book', 'url' => ['/book']],
-		['label' => 'Storage', 'url' => ['/media']],
+		['label' => 'Books', 'url' => ['/book']],
+		['label' => 'Images', 'url' => ['/image']],
 	];
 /*	if (Yii::$app->user->isGuest) {
 		$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

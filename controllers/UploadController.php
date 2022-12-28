@@ -6,7 +6,7 @@ namespace app\controllers;
 use Yii;
 use yii\rest\Controller;
 use app\models\Upload;
-use app\models\Media;
+use app\models\Image;
 use yii\web\UploadedFile;
 
 class UploadController extends Controller {
@@ -24,7 +24,7 @@ class UploadController extends Controller {
 			$model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
 			$result = $model->upload();
 			if ($result) {
-				return Media::findAll(['book_id' => $model->book_id]);
+				return Image::findAll(['book_id' => $model->book_id]);
 			} else return $result;
 
 		} return false;

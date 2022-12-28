@@ -3,13 +3,14 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var app\models\Media $model */
+/** @var app\models\Image $model */
 
-$this->title = 'Create Media';
+$this->title = 'Update Image: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Media', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="media-create">
+<div class="media-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

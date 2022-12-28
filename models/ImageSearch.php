@@ -4,13 +4,16 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Media;
+use app\models\Image;
 
 /**
- * MediaSearch represents the model behind the search form of `app\models\Media`.
+ * ImageSearch represents the model behind the search form of `app\models\Image`.
  */
-class MediaSearch extends Media
+class ImageSearch extends Image
 {
+	public function attributes() {
+		return array_merge(parent::attributes(), ['book.name']);
+	}
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,7 @@ class MediaSearch extends Media
     {
         return [
             [['id', 'book_id'], 'integer'],
-            [['file_name', 'path'], 'safe'],
+            [['file_name', 'path', 'book.name'], 'safe'],
         ];
     }
 
@@ -40,14 +43,14 @@ class MediaSearch extends Media
      */
     public function search($params)
     {
-        $query = Media::find();
+        $query = Image::find();
 //		$this::loadFilesFromFS();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+		$query->joinWith('book');
         $this->load($params);
 
         if (!$this->validate()) {
@@ -63,8 +66,13 @@ class MediaSearch extends Media
         ]);
 
         $query->andFilterWhere(['like', 'file_name', $this->file_name])
-            ->andFilterWhere(['like', 'path', $this->path]);
-
+            ->andFilterWhere(['like', 'path', $this->path])
+			->andFilterWhere(['like', 'book.name', $this->getAttribute('book.name')]);
+		$query->groupBy('image.id');
+		$dataProvider->sort->attributes['book.name'] = [
+			'asc' => ['book.name' => SORT_ASC],
+			'desc' => ['book.name' => SORT_DESC],
+		];
         return $dataProvider;
     }
 }
