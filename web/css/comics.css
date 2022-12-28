@@ -1,0 +1,15 @@
+.comics-view {
+
+}
+
+@media (max-width: 1023px) {
+    .comics-view .comics-image {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+@media (min-width: 1024px) {
+    .comics-view .comics-image {
+        margin: 0 1rem 1rem 0;
+    }
+}

@@ -74,9 +74,16 @@ class BookController extends Controller {
 		$model = $this->findModel($id);
 		$model->touch('last_read');
 		$model->updateCounters(['view_count' => 1]);
-		return $this->render('view', [
-			'model' => $model
-		]);
+		$comics = $model->getTags()->where(['name' => 'comics'])->one();
+		if ($comics) {
+			return $this->render('view_comics', [
+				'model' => $model
+			]);
+		} else {
+			return $this->render('view', [
+				'model' => $model
+			]);
+		}
 	}
 
 	/**
