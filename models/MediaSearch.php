@@ -41,7 +41,7 @@ class MediaSearch extends Media
     public function search($params)
     {
         $query = Media::find();
-		$this::loadFilesFromFS();
+//		$this::loadFilesFromFS();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
