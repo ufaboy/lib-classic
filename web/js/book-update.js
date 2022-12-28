@@ -6,8 +6,7 @@ createApp({
         }
     },
     mounted() {
-        this.images = storages
-        console.log('storages', storages)
+        this.images = images
     },
     methods: {
         inputFiles(evt) {
@@ -34,10 +33,10 @@ createApp({
             console.log('uploadFiles', {result: result})
         },
         getName(image) {
-            return image.id ? `${image.file_name}.${image.extension}` : image.name
+            return image.id ? `${image.file_name}` : image.name
         },
         getUrl(image) {
-            return image.id ? `/${image.path}/${image.file_name}.${image.extension}` : window.URL.createObjectURL(image);
+            return image.id ? `/${image.path}/${image.file_name}` : window.URL.createObjectURL(image);
         },
         async copyUrl(image) {
             const path = `${image.path}/${image.file_name}`
@@ -45,4 +44,4 @@ createApp({
             await navigator.clipboard.writeText(`<img class="picture" src="/${path}">`)
         }
     }
-}).mount('#storage-manager')
+}).mount('#image-manager')

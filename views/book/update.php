@@ -10,7 +10,7 @@ use app\assets\BookUpdateAsset;
 /* @var $uploadModel app\models\Upload */
 BookUpdateAsset::register($this);
 $uploadModel = new Upload;
-$this->registerJsVar('storages', $model->storages);
+$this->registerJsVar('images', $model->images);
 ?>
 <div class="book-update">
     <div class="left">
@@ -18,7 +18,7 @@ $this->registerJsVar('storages', $model->storages);
 			'model' => $model,
 		]) ?>
     </div>
-    <div id="storage-manager" class="right" v-scope="">
+    <div id="image-manager" class="right" v-scope="">
 <!--		--><?php /*$this->render('@app/views/storage/upload', [
 			'book_id' => $model->id,
 			'model' => $uploadModel,
