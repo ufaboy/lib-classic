@@ -14,6 +14,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -94,13 +95,15 @@ class BookController extends Controller {
 	public function actionCreate() {
 		$request = $this->request;
 		$model = new Book();
+
 		if ($this->request->isPost) {
 			$transaction = Yii::$app->db->beginTransaction();
 			try {
 				$post = $request->post();
 				$model->load($post);
 				$model->save();
-				foreach ($post['tag_ids'] as $key => $value) {
+
+				foreach ($model->tag_ids as $key => $value) {
 					$book_tag = new BookTag();;
 					$book_tag->book_id = $model->id;
 					$book_tag->tag_id = $value;
