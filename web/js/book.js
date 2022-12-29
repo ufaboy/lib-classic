@@ -1,13 +1,15 @@
 "use strict";
+import {createApp} from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 
 function saveProgress() {
     localStorage.setItem(`book_${id}`, String(Math.floor(document.documentElement.scrollTop)))
 }
+
 function scrollToMark() {
     const mark = localStorage.getItem(`book_${id}`)
-    console.log('scrollToMark', mark)
     window.scrollTo(0, +mark)
 }
+
 // Функция throttle будет принимать 2 аргумента:
 // - callee, функция, которую надо вызывать;
 // - timeout, интервал в мс, с которым следует пропускать вызовы.
@@ -38,7 +40,45 @@ function throttle(callee, timeout) {
 
 const optimizedHandler = throttle(saveProgress, 250)
 
-$(window).scroll( e => {
+$(window).scroll(e => {
     optimizedHandler()
 });
 scrollToMark()
+
+createApp({
+    data() {
+        return {
+            headerChapters: [],
+            chapterElement: null,
+            bottomShow: false
+        }
+    },
+    mounted() {
+        this.prepareHeaders()
+    },
+    methods: {
+        scrollToChapter() {
+            this.bottomShow = false
+            if (this.chapterElement) this.chapterElement.element.scrollIntoView()
+        },
+        calcOptionChapterName(chapter) {
+            const chapterElem = chapter.querySelector('.chapter-header')
+            return chapterElem ? chapterElem.innerHTML : ''
+        },
+        async prepareHeaders() {
+            let arr = []
+            const chapterElements = document.querySelectorAll('.chapter')
+            const h1Element = document.querySelector('.book-name')
+
+            if (h1Element) {
+                const item = {name: 'Table Of Content', url: '/', element: h1Element}
+                arr.push(item)
+                this.chapterElement = {name: 'Table Of Content', url: '/', element: h1Element}
+            }
+            for (const elem of chapterElements) {
+                arr.push({name: this.calcOptionChapterName(elem), url: elem.id, element: elem})
+            }
+            this.headerChapters = arr
+        }
+    }
+}).mount('#book-view')

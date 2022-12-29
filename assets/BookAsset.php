@@ -23,4 +23,8 @@ class BookAsset extends AssetBundle {
 		'yii\web\YiiAsset',
 		'yii\bootstrap5\BootstrapAsset',
 	];
+	public $jsOptions = [
+		'defer' => true,
+		'type' => 'module'
+	];
 }

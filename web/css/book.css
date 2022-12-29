@@ -51,7 +51,23 @@ span[data-tooltip]:hover {
     top: 0;
     background-color: var(--bs-green);
 }
-
+.bottom {
+    width: 100%;
+    padding: 3rem 0 0 0;
+    position: fixed;
+    bottom: -2rem;
+}
+.bottom.active {
+    animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@keyframes slide-top {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-2rem);
+    }
+}
 @media only screen and (max-width: 892px) {
     .book-view {
         max-width: initial;
