@@ -109,7 +109,7 @@ class BookController extends Controller {
 				$transaction->commit();
 				return $this->redirect(['view', 'id' => $model->id]);
 			} catch (Exception $ex) {
-				$transaction->rolback();
+				$transaction->rollBack();
 				Yii::$app->session->setFlash("error", $ex->getMessage());
 			}
 		} else {
