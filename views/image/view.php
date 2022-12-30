@@ -1,15 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use yii\web\YiiAsset;
 
 /** @var yii\web\View $this */
 /** @var app\models\Image $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Media', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 ?>
 <div class="media-view">
 
