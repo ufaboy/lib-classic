@@ -1,5 +1,5 @@
 "use strict";
-import {createApp} from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+import {createApp} from '/js/vue.esm-browser.js'
 
 function saveProgress() {
     localStorage.setItem(`book_${id}`, String(Math.floor(document.documentElement.scrollTop)))
@@ -46,6 +46,7 @@ $(window).scroll(e => {
 scrollToMark()
 
 createApp({
+    name: 'Book',
     data() {
         return {
             headerChapters: [],

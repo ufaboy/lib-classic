@@ -1,5 +1,6 @@
-import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+import { createApp } from '/js/vue.esm-browser.js'
 createApp({
+    name: 'BookUpdate',
     data() {
         return {
             images: [],
