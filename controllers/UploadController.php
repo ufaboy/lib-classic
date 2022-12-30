@@ -33,11 +33,9 @@ class UploadController extends Controller {
 		} return false;
 	}
 	public function actionSingle($id) {
-		$query = Yii::$app->request->queryParams;
 		$model = new UploadSingle();
 
 		if (Yii::$app->request->isPost) {
-			$model->load($query, '');
 			$model->imageFile = UploadedFile::getInstanceByName('imageFile');;
 			return $model->upload($id);
 		} return false;

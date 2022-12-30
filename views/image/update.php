@@ -16,7 +16,7 @@ $this->registerJsVar('imageSrc', $model->path . '/' . $model->file_name);
     <form method="post" action="/upload/single" enctype="multipart/form-data" @submit.prevent="uploadFile">
         <label class="upload-btn">
             <span>Load images</span>
-            <input type="file" hidden name="Upload[imageFile]" @input="inputFile"
+            <input type="file" hidden name="imageFile" @input="inputFile"
                    accept="image/png, image/jpeg, image/webp">
         </label>
         <button class="upload-btn">Upload</button>

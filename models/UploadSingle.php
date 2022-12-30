@@ -31,8 +31,7 @@ class UploadSingle extends Model {
 	 */
 	public function upload($id) {
 		{
-			if (true) {
-				Yii::debug('imagefilename: ' . $this->imageFile->name);
+			if ($this->validate()) {
 				$imageModel = Image::findOne($id);
 				$fileDir = 'book_' . str_pad($imageModel->book_id, 3, "0", STR_PAD_LEFT);
 				$pathDir = Yii::getAlias('@app') . '/storage/' . $imageModel->path;
