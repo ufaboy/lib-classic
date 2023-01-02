@@ -23,11 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class="create-book-wrapper">
 		<?= Html::a('Create Book', ['create'], ['class' => 'btn btn-success']) ?>
-		<?= Html::button('Filter', ['id' => 'show-filter', 'class' => 'btn btn-info']) ?>
     </p>
 
 	<?php Pjax::begin(); ?>
-	<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+<!--	--><?php //echo $this->render('_search', ['model' => $searchModel]); ?>
     <!--	--><?php //echo $this->render('_sort_form', ['model' => $searchModel]); ?>
 
 	<?= GridView::widget([
@@ -158,6 +157,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			[
 				'class' => ActionColumn::className(),
+                'visibleButtons' => [
+					'view' => false,
+					'update' => true,
+					'delete' => false
+                ],
 				'urlCreator' => function ($action, $model, $key, $index, $column) {
 					return Url::toRoute([$action, 'id' => $model->id]);
 				}
