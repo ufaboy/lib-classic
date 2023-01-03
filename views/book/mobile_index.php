@@ -1,14 +1,5 @@
 <?php
 
-use app\models\Author;
-use app\models\Series;
-use app\models\Tag;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
-use yii\helpers\VarDumper;
 use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
 use app\assets\BookMobileTableAsset;
@@ -25,11 +16,10 @@ $bookModels = $dataProvider->getModels()
 
 <!--	--><?php //Pjax::begin(); ?>
 	<?php echo $this->render('_search', ['model' => $searchModel]); ?>
-    <!--    --><?php //echo VarDumper::dumpAsString($dataProvider); ?>
     <ul class="book-list">
 		<?php foreach ($bookModels as $model): ?>
             <li>
-                <div class="book">
+                <a href="/book/view?id=<?= $model->id ?>" class="book">
                     <div class="preview">
 						<?php if($model->cover) : ?>
                             <img src="<?= $model->cover;?>" alt="">
@@ -50,7 +40,7 @@ $bookModels = $dataProvider->getModels()
                             ?>
                         </h6>
                     </div>
-                </div>
+                </a>
             </li>
 		<?php endforeach;?>
 

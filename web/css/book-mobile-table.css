@@ -8,6 +8,7 @@
 .book {
     display: flex;
     flex-flow: row nowrap;
+    text-decoration: none;
 }
 .info {
     display: flex;
