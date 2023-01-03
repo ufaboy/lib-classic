@@ -1,4 +1,4 @@
-const tableElement = document.querySelector('.table')
+const tableElement = document.querySelector('.table tbody')
 function openBook(e) {
     if (e.target.closest('a')) return;
     const row = e.target.closest('tr[data-key]');

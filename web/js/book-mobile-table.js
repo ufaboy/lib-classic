@@ -70,7 +70,6 @@ function hideForm() {
 }
 
 $('#btn-sort').click(e => {
-    $('#btn-sort').toggleClass('btn-asc').value(111111111)
     $('#btn-sort').value === 'desc' ? $('#btn-sort').value('btn-asc') : $('#btn-sort').value('btn-desc')
 })
 document.addEventListener('touchstart', touchStart, false);
