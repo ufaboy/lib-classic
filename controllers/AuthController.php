@@ -3,46 +3,107 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\User;
-use yii\web\BadRequestHttpException;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\web\Response;
+use yii\filters\VerbFilter;
+use app\models\LoginForm;
+use app\models\ContactForm;
+use app\models\SignupForm;
+use yii\web\UploadedFile;
 
-class AuthController extends \yii\web\Controller {
+class AuthController extends Controller
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
-	public function actionLogin() {
-		$data = Yii::$app->request->post();
-		if (!isset($data['username'], $data['password'])) {
-			throw new BadRequestHttpException('Необходимо отправить логин и пароль.');
-		}
-		$identity = User::findByUsername($data['username']);
+    /**
+     * {@inheritdoc}
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+        ];
+    }
 
-		if ($identity && $identity->validatePassword($data['password'])) {
-			return [
-				'username' => $identity->username,
-				'role' => $identity->role,
-				'token' => $identity->getToken()
-			];
-		}
-		Yii::$app->response->setStatusCode(401);
-		throw new BadRequestHttpException('invalid username or password');
+    /**
+     * Login action.
+     *
+     * @return Response|string
+     */
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
 
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+
+        $model->password = '';
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+	/**
+	 * Signs user up.
+	 *
+	 * @return mixed
+	 */
+	public function actionSignup()
+	{
+		$model = new SignupForm();
+/*		if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+			Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+			return $this->goHome();
+		}*/
+
+		return $this->render('signup', [
+			'model' => $model,
+		]);
 	}
 
-	public function actionSignin() {
-		$data = Yii::$app->request->post();
-		if (!isset($data['username'], $data['password'])) {
-			throw new BadRequestHttpException('Необходимо отправить логин и пароль.');
-		}
-		$model = new User();
-		$model->username = $data['username'];
-		$model->setPassword($data['password']);
-		$model->role = User::ROLE_READER;
-		if ($model->save()) {
-			return [
-				'username' => $model->username,
-				'role' => $model->role,
-				'token' => $model->getToken()];
-		}
-		Yii::$app->response->setStatusCode(401);
-		return ['message' => 'В доступе отказано'];
-	}
+    /**
+     * Logout action.
+     *
+     * @return Response
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
 }

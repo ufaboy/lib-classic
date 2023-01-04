@@ -17,16 +17,17 @@ $bookModels = $dataProvider->getModels()
 <!--	--><?php //Pjax::begin(); ?>
 	<?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <ul class="book-list">
-		<?php foreach ($bookModels as $model): ?>
+		<?php foreach ($bookModels as $index => $model): ?>
             <li>
                 <div class="book">
-                    <div class="preview">
+                    <label class="preview" for="<?= $model->id;?>">
 						<?php if($model->cover) : ?>
                             <img src="<?= $model->cover;?>" alt="">
 						<?php else : ?>
 							<?php echo $this->render('_icon_book', ['model' => $searchModel]); ?>
 						<?php endif; ?>
-                    </div>
+                    </label>
+                    <input type="checkbox" hidden id="<?= $model->id;?>">
                     <a href="/book/view?id=<?= $model->id ?>" class="info">
                         <h5>
 							<?=$model->name;?>
@@ -39,6 +40,21 @@ $bookModels = $dataProvider->getModels()
                             echo implode(', ', $tagNames);
                             ?>
                         </h6>
+                        <div class="info-collapsed">
+                            <p>
+                                <span>Rating:
+                                <?php if($model->rating) : ?>
+									<?= $model->rating;?>
+								<?php else : ?>
+                                    none
+								<?php endif; ?>
+                            </span>
+                                <span>Count: <?= $model->view_count ?></span>
+                            </p>
+                            <p class="description">
+								<?=$model->description;?>
+                            </p>
+                        </div>
                     </div>
                 </a>
             </li>
