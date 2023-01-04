@@ -135,17 +135,17 @@ $this->params['breadcrumbs'][] = $this->title;
 				'format' => ['date', 'php:Y-m-d'],
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
-						return ['data-title' => $column->label];
+						return ['data-title' => $column->label, 'class' => 'text-nowrap'];
 					}
 				}
 			],
 			[
 				'label' => 'Last read',
 				'attribute' => 'last_read',
-				'format' => ['date', 'php:Y-m-d'],
+				'format' => ['date', 'php:Y/m/d'],
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
-						return ['data-title' => $column->label, 'class' => 'mobile-hide'];
+						return ['data-title' => $column->label, 'class' => 'text-nowrap mobile-hide'];
 					}
 				},
 				'headerOptions' => [
