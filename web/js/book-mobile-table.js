@@ -1,12 +1,12 @@
+let infinityLoading = true;
 const observerOptions = {
     root: null,
     rootMargin: '0px',
     threshold: 1
 }
 const loadData = function (entries, observer) {
-    if (!entries[0].isIntersecting) return;
-    console.log('observer', {entries: entries, observer: observer})
-
+    if (!entries[0].isIntersecting || !infinityLoading) return;
+    // console.log('observer', {entries: entries, observer: observer})
     let page = document.getElementById('mobile-book-table')
     const url = document.querySelector('.pagination .next a').href
     $.ajax({
@@ -20,9 +20,7 @@ const loadData = function (entries, observer) {
             let newPaginationList = newDiv.querySelector('.pagination')
             page.querySelector('.book-list').append(...newList)
             page.querySelector('.pagination').innerHTML = newPaginationList.innerHTML
-            // var html = $(text);
-            // $('#p0').append(html.find('.list-view').html());
-            // $('body').find('.pagination').html(html.find('.pagination').html());
+            infinityLoading = newList.length === 20
         }
     });
 };
