@@ -8,12 +8,13 @@
 .book {
     display: flex;
     flex-flow: row nowrap;
-    text-decoration: none;
+
 }
 .info {
     display: flex;
     flex-flow: row wrap;
     width: calc(100% - 52px);
+    text-decoration: none;
 }
 h5, h6 {
     width: 100%;

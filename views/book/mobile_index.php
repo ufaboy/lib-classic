@@ -19,7 +19,7 @@ $bookModels = $dataProvider->getModels()
     <ul class="book-list">
 		<?php foreach ($bookModels as $model): ?>
             <li>
-                <a href="/book/view?id=<?= $model->id ?>" class="book">
+                <div class="book">
                     <div class="preview">
 						<?php if($model->cover) : ?>
                             <img src="<?= $model->cover;?>" alt="">
@@ -27,7 +27,7 @@ $bookModels = $dataProvider->getModels()
 							<?php echo $this->render('_icon_book', ['model' => $searchModel]); ?>
 						<?php endif; ?>
                     </div>
-                    <div class="info">
+                    <a href="/book/view?id=<?= $model->id ?>" class="info">
                         <h5>
 							<?=$model->name;?>
                         </h5>
