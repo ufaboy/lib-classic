@@ -60,6 +60,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
 			)
 			. Html::endForm();
 	}
+    if (str_contains($this->context->route, 'book')) {
+		echo Html::a('Create Book', ['create'], ['class' => 'btn btn-info']);
+	}
     NavBar::end();
     ?>
 </header>

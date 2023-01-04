@@ -9,8 +9,8 @@ use app\assets\BookMobileTableAsset;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 BookMobileTableAsset::register($this);
 $this->title = 'Books';
-$bookModels = $dataProvider->getModels()
-
+$bookModels = $dataProvider->getModels();
+$this->registerJsVar('count', $dataProvider->getCount());
 ?>
 <div id="mobile-book-table" class="mobile book-index">
 

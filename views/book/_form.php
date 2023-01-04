@@ -39,17 +39,17 @@ $ratings = [
 	<?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'tag_ids')->dropdownList(
-		Tag::find()->select(['name', 'id'])->indexBy('id')->column(),
+		Tag::find()->select(['name', 'id'])->orderBy('name ASC')->indexBy('id')->column(),
         ['prompt' => 'Select Tags', 'label' => 'name', 'multiple' => true,]
 	) ?>
 
 	<?= $form->field($model, 'author_id')->dropdownList(
-		Author::find()->select(['name', 'id'])->indexBy('id')->column(),
+		Author::find()->select(['name', 'id'])->orderBy('name ASC')->indexBy('id')->column(),
         ['prompt' => 'Select Author', 'label' => 'name']
 	) ?>
 
 	<?= $form->field($model, 'series_id')->dropdownList(
-		Series::find()->select(['name', 'id'])->indexBy('id')->column(),
+		Series::find()->select(['name', 'id'])->orderBy('name ASC')->indexBy('id')->column(),
         ['prompt' => 'Select Series', 'label' => 'name']
 	) ?>
 

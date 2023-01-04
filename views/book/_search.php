@@ -43,7 +43,7 @@ use yii\widgets\ActiveForm;
 	) ?>
 
     <?php  echo $form->field($model, 'tag')->dropDownList(
-		Tag::find()->select(['name', 'id'])->indexBy('id')->column(), ['prompt' => 'Select Tag']) ?>
+		Tag::find()->select(['name', 'id'])->orderBy('name ASC')->indexBy('id')->column(), ['prompt' => 'Select Tag']) ?>
 
     <?php // echo $form->field($model, 'bookmark') ?>
 
@@ -52,11 +52,11 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'cover') ?>
 
     <?php echo $form->field($model, 'author.name')->label('Author')->dropDownList(
-		Author::find()->select(['name'])->indexBy('name')->column(), ['prompt' => 'Select Author']) ?>
+		Author::find()->select(['name', 'id'])->orderBy('name ASC')->indexBy('name')->column(), ['prompt' => 'Select Author']) ?>
 
     <?php echo $form->field($model, 'series.name')->label('Series')
 		->dropDownList(
-			Series::find()->select(['name'])->indexBy('name')->column(), ['prompt' => 'Select Series']) ?>
+			Series::find()->select(['name', 'id'])->orderBy('name ASC')->indexBy('name')->column(), ['prompt' => 'Select Series']) ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
@@ -66,7 +66,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group actions">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary', ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

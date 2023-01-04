@@ -1,4 +1,5 @@
-let infinityLoading = true;
+let infinityLoading = count === 20;
+console.log('count', count)
 const observerOptions = {
     root: null,
     rootMargin: '0px',

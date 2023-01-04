@@ -21,9 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-index">
 
-    <p class="create-book-wrapper">
-		<?= Html::a('Create Book', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
 
 	<?php Pjax::begin(); ?>
 <!--	--><?php //echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -35,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'tableOptions' => [
 			'class' => 'table table-bordered'
 		],
+		'summary' => '',
 		'columns' => [
 			[
 				'label' => 'ID',
@@ -91,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				}
 			],
 			[
-				'label' => 'View Count',
+				'label' => 'Count',
 				'attribute' => 'view_count',
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
@@ -132,7 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'label' => 'Updated',
 				'attribute' => 'updated_at',
-				'format' => ['date', 'php:Y-m-d'],
+				'format' => ['date', 'php:Y/m/d'],
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
 						return ['data-title' => $column->label, 'class' => 'text-nowrap'];
