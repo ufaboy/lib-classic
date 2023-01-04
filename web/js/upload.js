@@ -1,4 +1,4 @@
-import {createApp} from '/js/vue.esm-browser.js'
+const { createApp } = Vue
 
 createApp({
     name: 'ImageUpdate',

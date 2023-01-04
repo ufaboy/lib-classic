@@ -1,6 +1,5 @@
 "use strict";
-import {createApp} from '/js/vue.esm-browser.js'
-
+const { createApp } = Vue
 function saveProgress() {
     localStorage.setItem(`book_${id}`, String(Math.floor(document.documentElement.scrollTop)))
 }
@@ -45,7 +44,7 @@ $(window).scroll(e => {
 });
 scrollToMark()
 
-createApp({
+Vue.createApp({
     name: 'Book',
     data() {
         return {

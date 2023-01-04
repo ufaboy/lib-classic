@@ -22,7 +22,7 @@ class BookUpdateAsset extends AssetBundle {
 	public $depends = [
 		'yii\web\YiiAsset',
 		'yii\bootstrap5\BootstrapAsset',
-//		VueAsset::class
+		VueAsset::class
 	];
 	public $jsOptions = [
 		'defer' => true,

@@ -10,6 +10,7 @@ use yii\widgets\DetailView;
 
 $this->title = $model->name;
 YiiAsset::register($this);
+//\app\assets\VueAsset::register($this);
 BookAsset::register($this);
 $this->registerJsVar('id', $model->id);
 ?>

@@ -15,13 +15,13 @@ class VueAsset extends AssetBundle {
 	public $baseUrl = '@web';
 
 	public $js = [
-		'https://unpkg.com/petite-vue',
+//		'js/vue.global.js'
+		'js/vue.global.prod.js'
 	];
 	public $depends = [
 		'yii\web\YiiAsset',
 	];
-/*	public $jsOptions = [
+	public $jsOptions = [
 		'defer' => true,
-		'init' => true,
-	];*/
+	];
 }
