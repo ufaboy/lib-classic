@@ -121,7 +121,7 @@ class BookController extends Controller {
 					$book_tag->save();
 				}
 				$transaction->commit();
-				Yii::$app->session->setFlash('success');
+				Yii::$app->session->setFlash('success', 'Success');
 				return $this->redirect(['view', 'id' => $model->id]);
 			} catch (Exception $ex) {
 				$transaction->rollBack();
@@ -146,7 +146,7 @@ class BookController extends Controller {
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
 		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-			Yii::$app->session->setFlash('success');
+			Yii::$app->session->setFlash('success', 'Success');
 			return $this->redirect(['view', 'id' => $model->id]);
 		}
 
