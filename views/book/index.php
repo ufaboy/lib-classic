@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'label' => 'Author',
 				'attribute' => 'author.name',
-				'filter' => Author::find()->select(['name'])->indexBy('name')->column(),
+				'filter' => Author::find()->select(['name'])->orderBy('name ASC')->indexBy('name')->column(),
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
 						return ['data-title' => $column->label];
@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'Series',
 				'attribute' => 'series.name',
 //				'filter' => Series::find()->select(['name', 'id'])->indexBy('id')->column(),
-				'filter' => Series::find()->select(['name'])->indexBy('name')->column(),
+				'filter' => Series::find()->select(['name'])->orderBy('name ASC')->indexBy('name')->column(),
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
 						return ['data-title' => $column->label];
