@@ -12,7 +12,7 @@ ComicsAsset::register($this);
 $this->registerJsVar('id', $model->id);
 ?>
 <div class="comics-view">
-	<?php foreach ($model->medias as $key => $media): ?>
-        <img src="<?= '/' . $media->path . '/' . $media->file_name; ?>" class="comics-image">
+	<?php foreach ($model->images as $key => $image): ?>
+        <img src="<?= '/' . $image->path . '/' . $image->file_name; ?>" class="comics-image">
 	<?php endforeach; ?>
 </div>

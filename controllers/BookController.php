@@ -121,11 +121,11 @@ class BookController extends Controller {
 					$book_tag->save();
 				}
 				$transaction->commit();
-				Yii::$app->session->setFlash('success', 'Success');
+				Yii::$app->session->setFlash('success', 'Success', true);
 				return $this->redirect(['view', 'id' => $model->id]);
 			} catch (Exception $ex) {
 				$transaction->rollBack();
-				Yii::$app->session->setFlash("error", $ex->getMessage());
+				Yii::$app->session->setFlash("error", $ex->getMessage(), true);
 			}
 		} else {
 			$model->loadDefaultValues();
@@ -146,7 +146,7 @@ class BookController extends Controller {
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
 		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-			Yii::$app->session->setFlash('success', 'Success');
+			Yii::$app->session->setFlash('success', 'Success', true);
 			return $this->redirect(['view', 'id' => $model->id]);
 		}
 
