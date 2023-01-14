@@ -52,7 +52,7 @@ class Upload extends Model {
 			return $imageArray;
 		} else {
 			Yii::debug('validate error');
-			return $this->imageFiles;
+			return $this->getErrors();
 		}
 	}
 
