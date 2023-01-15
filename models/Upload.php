@@ -22,7 +22,7 @@ class Upload extends Model {
 	public function rules() {
 		return [
 			[['book_id'], 'safe'],
-			[['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, webp', 'maxFiles' => 200],
+			[['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, webp, webm, mp4', 'maxFiles' => 200],
 		];
 	}
 

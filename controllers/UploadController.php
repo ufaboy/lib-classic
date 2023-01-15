@@ -2,8 +2,6 @@
 
 namespace app\controllers;
 
-
-
 use Yii;
 use yii\helpers\VarDumper;
 use yii\rest\Controller;

@@ -1,3 +1,10 @@
+.table tr th:first-of-type, td:first-of-type {
+    min-width: 4rem;
+}
+.table .form-control {
+    padding: 0.375rem;
+}
+
 .pagination {
     margin-bottom: 0;
 }
