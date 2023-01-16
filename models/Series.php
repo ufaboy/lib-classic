@@ -2,57 +2,6 @@
 
 namespace app\models;
 
-use Yii;
+class Series extends \app\common\models\Series {
 
-/**
- * This is the model class for table "series".
- *
- * @property int $id
- * @property string|null $name
- * @property string|null $url
- *
- * @property Book[] $books
- */
-class Series extends \yii\db\ActiveRecord
-{
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'series';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name'], 'string', 'max' => 255],
-            [['url'], 'string', 'max' => 1024],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'url' => 'Url',
-        ];
-    }
-
-    /**
-     * Gets query for [[Books]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBooks()
-    {
-        return $this->hasMany(Book::className(), ['series_id' => 'id']);
-    }
 }

@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "author".
  *
@@ -13,46 +11,6 @@ use Yii;
  *
  * @property Book[] $books
  */
-class Author extends \yii\db\ActiveRecord
-{
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'author';
-    }
+class Author extends \app\common\models\Author {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name'], 'string', 'max' => 255],
-            [['url'], 'string', 'max' => 1024],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'url' => 'Url',
-        ];
-    }
-
-    /**
-     * Gets query for [[Books]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBooks()
-    {
-        return $this->hasMany(Book::className(), ['author_id' => 'id']);
-    }
 }

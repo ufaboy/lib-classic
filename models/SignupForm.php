@@ -2,45 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-use yii\base\Model;
+class SignupForm extends \app\common\models\SignupForm {
 
-/**
- * Signup form
- */
-class SignupForm extends Model {
-	public $username;
-	public $password;
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function rules() {
-		return [
-			['username', 'trim'],
-			['username', 'required'],
-			['username', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This username has already been taken.'],
-			['username', 'string', 'min' => 2, 'max' => 255],
-
-			['password', 'required'],
-		];
-	}
-
-	/**
-	 * Signs user up.
-	 *
-	 * @return bool whether the creating new account was successful
-	 */
-	public function signup() {
-		if (!$this->validate()) {
-			return null;
-		}
-
-		$user = new User();
-		$user->username = $this->username;
-		$user->setPassword($this->password);
-		$user->generateAuthKey();
-
-		return $user->save();
-	}
 }
