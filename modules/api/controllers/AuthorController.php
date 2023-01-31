@@ -5,6 +5,7 @@ namespace app\modules\api\controllers;
 use app\modules\api\models\Author;
 use app\modules\api\models\AuthorSearch;
 use yii\filters\AccessControl;
+use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
@@ -18,20 +19,25 @@ class AuthorController extends Controller {
 	 * @inheritDoc
 	 */
 	public function behaviors() {
-		return array_merge(
-			parent::behaviors(),
-			[
-				'corsFilter' => [
-					'class' => Cors::class,
-				],
-				'verbs' => [
-					'class' => VerbFilter::className(),
-					'actions' => [
-						'delete' => ['POST'],
-					],
-				],
-			]
-		);
+		$behaviors = parent::behaviors();
+
+		// remove authentication filter
+		$auth = $behaviors['authenticator'];
+		unset($behaviors['authenticator']);
+
+		// add CORS filter
+		$behaviors['corsFilter'] = [
+			'class' => Cors::class,
+		];
+
+		// re-add authentication filter
+		$behaviors['authenticator'] = [
+			'class' => HttpBearerAuth::class,
+		];
+		// avoid authentication on CORS-pre-flight requests (HTTP OPTIONS method)
+		$behaviors['authenticator']['except'] = ['options'];
+
+		return $behaviors;
 	}
 
 	/**

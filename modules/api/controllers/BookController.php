@@ -2,13 +2,15 @@
 
 namespace app\modules\api\controllers;
 
-use app\modules\api\models\Book;
-use app\modules\api\models\BookSearch;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
+use yii\filters\VerbFilter;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use app\modules\api\models\Book;
+use app\modules\api\models\BookSearch;
 
 /**
  * BookController implements the CRUD actions for Book model.
@@ -19,20 +21,25 @@ class BookController extends Controller {
 	 */
 
 	public function behaviors() {
-		return array_merge(
-			parent::behaviors(),
-			[
-				'corsFilter' => [
-					'class' => Cors::class,
-				],
-				'verbs' => [
-					'class' => VerbFilter::className(),
-					'actions' => [
-						'delete' => ['POST'],
-					],
-				],
-			]
-		);
+		$behaviors = parent::behaviors();
+
+		// remove authentication filter
+		$auth = $behaviors['authenticator'];
+		unset($behaviors['authenticator']);
+
+		// add CORS filter
+		$behaviors['corsFilter'] = [
+			'class' => Cors::class,
+		];
+
+		// re-add authentication filter
+		$behaviors['authenticator'] = [
+			'class' => HttpBearerAuth::class,
+		];
+		// avoid authentication on CORS-pre-flight requests (HTTP OPTIONS method)
+		$behaviors['authenticator']['except'] = ['options'];
+
+		return $behaviors;
 	}
 
 	public $serializer = [
@@ -56,10 +63,10 @@ class BookController extends Controller {
 	public function actionView($id): Book|array {
 		$book = $this->findModel($id);
 		if ($book) {
-/*			if (\Yii::$app->user->identity->role !== 'librarian') {
-				Yii::$app->response->setStatusCode(403);
-				return ['message' => 'You do not have permissions', 'errors' => $book->getErrors()];
-			}*/
+			/*			if (\Yii::$app->user->identity->role !== 'librarian') {
+							Yii::$app->response->setStatusCode(403);
+							return ['message' => 'You do not have permissions', 'errors' => $book->getErrors()];
+						}*/
 			$book->updateCounters(['view_count' => 1]);
 			$book->touch('last_read');
 			return $book;

@@ -2,13 +2,14 @@
 
 namespace app\modules\api\controllers;
 
+use Yii;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\Cors;
+use yii\web\NotFoundHttpException;
+use yii\rest\Controller;
+
 use app\modules\api\models\Tag;
 use app\modules\api\models\TagSearch;
-use yii\filters\AccessControl;
-use yii\filters\Cors;
-use yii\rest\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * TagController implements the CRUD actions for Tag model.
@@ -18,20 +19,25 @@ class TagController extends Controller {
 	 * @inheritDoc
 	 */
 	public function behaviors() {
-		return array_merge(
-			parent::behaviors(),
-			[
-				'corsFilter' => [
-					'class' => Cors::class,
-				],
-				'verbs' => [
-					'class' => VerbFilter::className(),
-					'actions' => [
-						'delete' => ['POST'],
-					],
-				],
-			]
-		);
+		$behaviors = parent::behaviors();
+
+		// remove authentication filter
+		$auth = $behaviors['authenticator'];
+		unset($behaviors['authenticator']);
+
+		// add CORS filter
+		$behaviors['corsFilter'] = [
+			'class' => Cors::class,
+		];
+
+		// re-add authentication filter
+		$behaviors['authenticator'] = [
+			'class' => HttpBearerAuth::class,
+		];
+		// avoid authentication on CORS-pre-flight requests (HTTP OPTIONS method)
+		$behaviors['authenticator']['except'] = ['options'];
+
+		return $behaviors;
 	}
 
 	/**
@@ -41,6 +47,9 @@ class TagController extends Controller {
 	 */
 	public function actionIndex() {
 		$searchModel = new TagSearch();
+		$cookies = Yii::$app->request->cookies;
+
+		$language = $cookies->getValue('language', 'en');
 		return $searchModel->search($this->request->queryParams);
 	}
 
