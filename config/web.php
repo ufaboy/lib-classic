@@ -15,8 +15,7 @@ $config = [
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'fgf196gdf-gfhh$%fdgfdg242343432gfdgdf545',
+            'cookieValidationKey' => $_ENV['HASH'],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -55,6 +54,11 @@ $config = [
 
     ],
     'params' => $params,
+	'modules' => [
+		'api' => [
+			'class' => 'app\modules\api\Module',
+		],
+	],
 ];
 
 if (YII_ENV_DEV) {

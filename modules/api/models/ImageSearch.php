@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\api\models;
 
 class ImageSearch extends \app\common\models\ImageSearch {
 

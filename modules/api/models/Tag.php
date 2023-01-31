@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\api\models;
 
 class Tag extends \app\common\models\Tag {
 

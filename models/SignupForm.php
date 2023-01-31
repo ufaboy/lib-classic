@@ -15,7 +15,7 @@ class SignupForm extends Model {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function rules() {
+	public function rules(): array {
 		return [
 			['username', 'trim'],
 			['username', 'required'],
@@ -31,7 +31,7 @@ class SignupForm extends Model {
 	 *
 	 * @return bool whether the creating new account was successful
 	 */
-	public function signup() {
+	public function signup(): ?bool {
 		if (!$this->validate()) {
 			return null;
 		}

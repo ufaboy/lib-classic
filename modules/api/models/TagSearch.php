@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\api\models;
 
 class TagSearch extends \app\common\models\TagSearch {
 
