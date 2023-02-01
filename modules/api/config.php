@@ -5,11 +5,13 @@ $db = require Yii::getAlias('@app/config/db.php');
 $config = [
 	'components' => [
 		'user' => [
+			'class' => 'yii\web\User',
 			'identityClass' => 'app\modules\api\models\User',
 			'enableAutoLogin' => true,
 			'loginUrl' => ['auth/login'],
 		],
 		'log' => [
+			'class' => 'yii\log\Dispatcher',
 			'traceLevel' => YII_DEBUG ? 3 : 0,
 			'targets' => [
 				[
@@ -25,6 +27,7 @@ $config = [
 			],
 		],*/
 		'urlManager' => [
+			'class' => 'yii\web\UrlManager',
 			'enablePrettyUrl' => true,
 			'enableStrictParsing' => true,
 			'showScriptName' => false,
@@ -40,3 +43,4 @@ $config = [
 		]
 	],
 ];
+return $config;
