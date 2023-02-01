@@ -53,11 +53,11 @@ class AuthController extends Controller {
 			$login = $model->login();
 			$id = Yii::$app->user->getId();
 			$user = User::findOne($id);
-			$cookies = Yii::$app->response->cookies;
+/*			$cookies = Yii::$app->response->cookies;
 			$cookies->add(new Cookie([
 				'name' => 'token',
 				'value' => $user->access_token,
-			]));
+			]));*/
 //			Yii::debug(VarDumper::dumpAsString($user));
 			return [
 				'username' => $user->username,
