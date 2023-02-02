@@ -19,7 +19,7 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
-          source: ${{ env.BUILD_SCRIPT_OUTPUT }}, !${{ env.BUILD_SCRIPT_OUTPUT }}/runtime, ${{ env.BUILD_SCRIPT_OUTPUT }}/.git
+          source: ${{ env.BUILD_SCRIPT_OUTPUT }}, !${{ env.BUILD_SCRIPT_OUTPUT }}/runtime, ${{ env.BUILD_SCRIPT_OUTPUT }}/.git, !${{ env.BUILD_SCRIPT_OUTPUT }}/.github, !${{ env.BUILD_SCRIPT_OUTPUT }}/storage,
           target: /${{ env.DEPLOY_PATH }}
           strip_components: 1
       - name: Print Info
