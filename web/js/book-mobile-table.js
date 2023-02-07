@@ -1,5 +1,5 @@
 let infinityLoading = count === 20;
-console.log('count', count)
+// console.log('count', count)
 const observerOptions = {
     root: null,
     rootMargin: '0px',
@@ -51,20 +51,30 @@ function touchEnd(e) {
     } else if (difX < -100 && difY < 50) {
         slideRightLeft = true
     }
-    if (slideLeftRight) showForm()
+    if (slideLeftRight) showFilter()
+    if (slideRightLeft) showSort()
 }
 
-function showForm() {
+function showFilter() {
     $('.book-search').css('display', 'flex');
-    $('.form-book').on('reset', () => hideForm());
+    $('.form-filter-book').on('reset', () => hideFilter());
     $('body').on('keyup', e => {
-        if (e.key === "Escape") hideForm();
+        if (e.key === "Escape") hideFilter();
+    });
+}
+function showSort() {
+    $('.book-sort').css('display', 'flex');
+    $('.form-sort-book').on('reset', () => hideFilter());
+    $('body').on('keyup', e => {
+        if (e.key === "Escape") hideFilter();
     });
 }
 
-function hideForm() {
+function hideFilter() {
     $('.book-search').css('display', 'none');
-    $('.form-book').unbind()
+    $('.book-sort').css('display', 'none');
+    $('.form-filter-book').unbind()
+    $('.form-sort-book').unbind()
     $('body').unbind()
 }
 
@@ -74,4 +84,4 @@ $('#btn-sort').click(e => {
 document.addEventListener('touchstart', touchStart, false);
 document.addEventListener('touchend', touchEnd, false);
 
-$('#show-filter').click(showForm);
+$('#show-filter').click(showFilter);

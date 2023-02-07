@@ -54,9 +54,7 @@ p.description {
     object-fit: cover;
     border-radius: 5px;
 }
-input[type="checkbox"] {
 
-}
 .info-collapsed {
     display: none;
 }
@@ -67,7 +65,7 @@ input[type="checkbox"]:checked + a .info-collapsed {
     display: none;
 }
 
-.book-search {
+.book-search, .book-sort {
     display: none;
     justify-content: center;
     align-items: center;
@@ -80,7 +78,7 @@ input[type="checkbox"]:checked + a .info-collapsed {
     background: rgba(238, 238, 238, 0.5);
 }
 
-.book-search .form-book {
+.book-search .form-filter-book, .book-sort .sort-list {
     padding: 1rem;
     background: #ffffff;
     border: 1px solid;
@@ -91,35 +89,30 @@ input[type="checkbox"]:checked + a .info-collapsed {
     margin-top: 0.5rem;
 }
 
-.book-search .form-book .actions {
+.book-search .form-filter-book .actions {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-
-.form-sort-book {
-    display: none;
+.form-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.sort-list {
+    list-style-type: none;
+}
+.sort-list .sort-li a {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+.sort-list .sort-li + .sort-li {
+    margin-top: 1rem;
 }
 
-.icon-asc {
-    display: none;
-}
-
-.btn-asc .icon-asc {
-    display: block;
-}
-.btn-asc .icon-desc {
-    display: none;
-}
 
 @media (max-width: 768px) {
     .create-book-wrapper {
         display: none;
-    }
-
-    .form-sort-book {
-        display: flex;
-        flex-flow: row nowrap;
     }
 }
 @media (max-width: 992px) {
@@ -128,11 +121,11 @@ input[type="checkbox"]:checked + a .info-collapsed {
     }
 }
 @media (prefers-color-scheme: dark) {
-    .book-search {
+    .book-search, .book-sort {
         background: rgba(0, 0, 0, 0.5);
     }
 
-    .book-search .form-book {
+    .book-search .form-filter-book, .book-sort .sort-list {
         background: #475569;
     }
 }

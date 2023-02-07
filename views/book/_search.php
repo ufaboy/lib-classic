@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
         'options' => [
             'data-pjax' => 1,
-			'class' => 'form-book'
+			'class' => 'form-filter-book'
         ],
     ]); ?>
 	<?php $ratings = [

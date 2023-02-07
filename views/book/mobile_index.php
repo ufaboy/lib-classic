@@ -16,6 +16,7 @@ $this->registerJsVar('count', $dataProvider->getCount());
 
 <!--	--><?php //Pjax::begin(); ?>
 	<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+	<?php echo $this->render('_sort', ['model' => $searchModel, 'sort' => $dataProvider->sort]); ?>
     <ul class="book-list">
 		<?php foreach ($bookModels as $index => $model): ?>
             <li>
