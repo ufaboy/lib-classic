@@ -20,19 +20,19 @@ $this->title = 'Books';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-index">
-
-
-
 	<?php Pjax::begin(); ?>
-<!--	--><?php //echo $this->render('_search', ['model' => $searchModel]); ?>
+    <!--	--><?php //echo $this->render('_search', ['model' => $searchModel]); ?>
     <!--	--><?php //echo $this->render('_sort_form', ['model' => $searchModel]); ?>
 
-	<?= GridView::widget([
+    <?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
 		'tableOptions' => [
 			'class' => 'table table-bordered'
 		],
+        'rowOptions' => function($model, $index, $key) {
+        return ['onclick' => 'openBook'];
+    },
 		'summary' => '',
 		'columns' => [
 			[
@@ -47,11 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'label' => 'Name',
 				'attribute' => 'name',
-				'contentOptions' => function ($model, $key, $index, $column) {
-					{
-						return ['data-title' => $column->label];
-					}
-				}
+/*				'content' => function ($model, $key, $index, $column) {
+					return Html::a($model->name, Url::to(['book/view', 'id' => $model->id]));
+				},*/
 			],
 			[
 				'label' => 'Description',

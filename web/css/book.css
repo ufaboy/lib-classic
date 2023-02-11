@@ -52,10 +52,14 @@ span[data-tooltip]:hover {
     background-color: var(--bs-green);
 }
 .bottom {
-    width: 100%;
+    width: calc(100% - 30px);
     padding: 3rem 0 0 0;
     position: fixed;
-    bottom: -2rem;
+    bottom: -3rem;
+}
+.bottom select {
+    width: 100%;
+    padding: 5px;
 }
 .bottom.active {
     animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
@@ -65,7 +69,7 @@ span[data-tooltip]:hover {
         transform: translateY(0);
     }
     100% {
-        transform: translateY(-2rem);
+        transform: translateY(-3rem);
     }
 }
 @media only screen and (max-width: 892px) {
