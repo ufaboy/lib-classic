@@ -63,8 +63,8 @@ function showFilter() {
     });
 }
 function showSort() {
-    $('.book-sort').css('display', 'flex');
-    $('.form-sort-book').on('reset', () => hideFilter());
+    $('.book-sort-layout').css('display', 'flex');
+    $('#btn-sort-reset').click(() => hideFilter());
     $('body').on('keyup', e => {
         if (e.key === "Escape") hideFilter();
     });
@@ -72,9 +72,8 @@ function showSort() {
 
 function hideFilter() {
     $('.book-search').css('display', 'none');
-    $('.book-sort').css('display', 'none');
+    $('.book-sort-layout').css('display', 'none').unbind();
     $('.form-filter-book').unbind()
-    $('.form-sort-book').unbind()
     $('body').unbind()
 }
 

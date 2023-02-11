@@ -65,7 +65,7 @@ input[type="checkbox"]:checked + a .info-collapsed {
     display: none;
 }
 
-.book-search, .book-sort {
+.book-search, .book-sort-layout {
     display: none;
     justify-content: center;
     align-items: center;
@@ -78,11 +78,20 @@ input[type="checkbox"]:checked + a .info-collapsed {
     background: rgba(238, 238, 238, 0.5);
 }
 
-.book-search .form-filter-book, .book-sort .sort-list {
+.book-search .form-filter-book, .book-sort {
     padding: 1rem;
     background: #ffffff;
     border: 1px solid;
     border-radius: 5px;
+}
+.book-sort {
+   display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+.book-sort .sort-list {
+    width: 100%;
+    padding: 0;
 }
 
 .book-search .form-group + .form-group {
@@ -121,11 +130,11 @@ input[type="checkbox"]:checked + a .info-collapsed {
     }
 }
 @media (prefers-color-scheme: dark) {
-    .book-search, .book-sort {
+    .book-search, .book-sort-layout {
         background: rgba(0, 0, 0, 0.5);
     }
 
-    .book-search .form-filter-book, .book-sort .sort-list {
+    .book-search .form-filter-book, .book-sort {
         background: #475569;
     }
 }
