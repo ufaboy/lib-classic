@@ -29,34 +29,34 @@
 }
 
 @media (max-width: 768px) {
-    thead {
+    .table-mobile thead {
         display: none;
     }
 
-    tbody,
-    tr,
-    td {
+    .table-mobile tbody,
+    .table-mobile tr,
+    .table-mobile td {
         display: block;
     }
 
-    tr {
+    .table-mobile tr {
         margin-bottom: 1rem;
     }
-    .table-bordered tr {
+    .table-mobile.table-bordered tr {
         border-radius: 5px;
         border-width: 1px!important;
     }
-    td {
+    .table-mobile td {
         padding: 5px;
         text-align: right;
         transition: all 0.3s ease;
         min-height: 2rem;
     }
-    .table-bordered td {
+    .table-mobile .table-bordered td {
         border-width: 0!important;
     }
 
-    td[data-title]:before {
+    .table-mobile td[data-title]:before {
         content: attr(data-title);
         float: left;
         font-size: inherit;

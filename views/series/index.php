@@ -25,7 +25,7 @@ TableAsset::register($this);
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'tableOptions' => [
-			'class' => 'table table-bordered'
+			'class' => 'table table-mobile table-bordered'
 		],
         'columns' => [
 			[

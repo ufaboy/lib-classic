@@ -20,7 +20,7 @@ $this->title = 'Books';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-index">
-	<?php Pjax::begin(); ?>
+<!--	--><?php //Pjax::begin(); ?>
     <!--	--><?php //echo $this->render('_search', ['model' => $searchModel]); ?>
     <!--	--><?php //echo $this->render('_sort_form', ['model' => $searchModel]); ?>
 
@@ -30,9 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		'tableOptions' => [
 			'class' => 'table table-bordered'
 		],
-        'rowOptions' => function($model, $index, $key) {
-        return ['onclick' => 'openBook'];
-    },
 		'summary' => '',
 		'columns' => [
 			[
@@ -164,6 +161,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 		],
 	]); ?>
-	<?php Pjax::end(); ?>
+<!--	--><?php //Pjax::end(); ?>
 
 </div>
