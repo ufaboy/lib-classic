@@ -1,5 +1,6 @@
 "use strict";
-const { createApp } = Vue
+const {createApp} = Vue
+
 function saveProgress() {
     localStorage.setItem(`book_${id}`, String(Math.floor(document.documentElement.scrollTop)))
 }
@@ -50,11 +51,19 @@ Vue.createApp({
         return {
             headerChapters: [],
             chapterElement: null,
-            bottomShow: false
+            bottomShow: false,
+            isThrottledScroll: false,
+            progress: 0
+        }
+    },
+    computed: {
+        progressStyle() {
+            return {height: `${this.progress}vh`}
         }
     },
     mounted() {
         this.prepareHeaders()
+        window.addEventListener("scroll", this.throttleScroll, {passive: true});
     },
     methods: {
         scrollToChapter() {
@@ -79,6 +88,19 @@ Vue.createApp({
                 arr.push({name: this.calcOptionChapterName(elem), url: elem.id, element: elem})
             }
             this.headerChapters = arr
+        },
+        throttleScroll() {
+            if (this.isThrottledScroll) {
+                return
+            }
+            this.isThrottledScroll = true
+            setTimeout(() => {
+                this.isThrottledScroll = false
+                this.handleScroll()
+            }, 500)
+        },
+        handleScroll() {
+            this.progress = Math.floor((document.documentElement.scrollTop * 100) / document.documentElement.scrollHeight)
         }
     }
 }).mount('#book-view')

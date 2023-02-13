@@ -26,6 +26,7 @@ $this->registerJsVar('id', $model->id);
         ]) */ ?>
     </p>-->
     <div id="text" class="text"><?= $model->text ?></div>
+    <div id="scrolling-progress" :style="progressStyle"></div>
     <div class="bottom" :class="{active: bottomShow}" @click.self="bottomShow = !bottomShow">
         <select v-model="chapterElement" @change="scrollToChapter">
             <option :value="chapter" v-for="(chapter, index) in headerChapters">{{chapter.name}}</option>

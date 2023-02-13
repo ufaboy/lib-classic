@@ -23,7 +23,13 @@ p {
     text-indent: 1rem;
     margin: 0 0 0.3rem;
 }
-
+#scrolling-progress {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 4px;
+    background-color: #ffc107;
+}
 span[data-tooltip]:hover {
     color: crimson;
 }
