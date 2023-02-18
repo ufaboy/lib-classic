@@ -14,6 +14,7 @@ use yii\widgets\ActiveForm;
         <ul class="sort-list">
             <li class="sort-li"><?= $sort->link('id') ?></li>
             <li class="sort-li"><?= $sort->link('name') ?></li>
+            <li class="sort-li"><?= $sort->link('length') ?></li>
             <li class="sort-li"><?= $sort->link('view_count') ?></li>
             <li class="sort-li"><?= $sort->link('rating') ?></li>
             <li class="sort-li"><?= $sort->link('updated_at') ?></li>
