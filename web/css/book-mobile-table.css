@@ -45,6 +45,16 @@ p.description {
     margin-right: 5px;
     height: auto;
 }
+.icon-book-wrapper {
+    position: relative;
+}
+.icon-book-wrapper .book-size {
+    position: absolute;
+    z-index: 5;
+    left: 15px;
+    top: 5px;
+    text-align: center;
+}
 .preview svg {
 
 }

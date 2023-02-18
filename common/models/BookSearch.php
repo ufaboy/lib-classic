@@ -11,8 +11,6 @@ use yii\data\ActiveDataProvider;
 class BookSearch extends Book {
 	public string $tag = '';
 	public string|null $length = '';
-	public int $sizeStart;
-	public int $sizeLast;
 
 	public function attributes(): array {
 		return array_merge(parent::attributes(), ['book.length', 'author.name', 'series.name']);
@@ -44,6 +42,8 @@ class BookSearch extends Book {
 	 * @return ActiveDataProvider
 	 */
 	public function search($params): ActiveDataProvider {
+		$sizeStart = 0;
+		$sizeLast = 0;
 		/*        $query = Book::find()->select([
 					'id', 'name', 'description', 'source', 'cover', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'
 				]);*/
