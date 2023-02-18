@@ -48,6 +48,21 @@ $this->params['breadcrumbs'][] = $this->title;
 					return Html::a($model->name, Url::to(['book/view', 'id' => $model->id]));
 				},*/
 			],
+            [
+				'label' => 'Size',
+				'attribute' => 'length',
+				'value' => function ($model, $key, $index, $column) {
+					if ($model->length < 50000) {
+						return 'S';
+					} elseif ($model->length < 300000) {
+						return 'M';
+					} elseif ($model->length < 800000) {
+						return 'L';
+					} else	return 'XL';
+				},
+//				'filterInputOptions' => ['prompt' => 'All', 'class' => 'form-control',],
+                'filter' => ['S' => 'S', 'M' => 'M' , 'L' => 'L', 'XL' => 'E' ]
+			],
 			[
 				'label' => 'Description',
 				'attribute' => 'description',

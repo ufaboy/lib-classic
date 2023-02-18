@@ -10,9 +10,12 @@ use yii\data\ActiveDataProvider;
  */
 class BookSearch extends Book {
 	public string $tag = '';
+	public string|null $length = '';
+	public int $sizeStart;
+	public int $sizeLast;
 
 	public function attributes(): array {
-		return array_merge(parent::attributes(), ['author.name', 'series.name']);
+		return array_merge(parent::attributes(), ['book.length', 'author.name', 'series.name']);
 	}
 
 	/**
@@ -21,7 +24,7 @@ class BookSearch extends Book {
 	public function rules(): array {
 		return [
 			[['id', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
-			[['name', 'description', 'text', 'source', 'cover', 'tag', 'author.name', 'series.name'], 'safe'],
+			[['name', 'length', 'description', 'text', 'source', 'cover', 'tag', 'author.name', 'series.name'], 'safe'],
 		];
 	}
 
@@ -45,6 +48,9 @@ class BookSearch extends Book {
 					'id', 'name', 'description', 'source', 'cover', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'
 				]);*/
 		$query = self::find();
+		$query->select([
+			'book.id', 'book.name', 'book.description', 'LENGTH(book.text) as length', 'book.source', 'book.cover', 'book.view_count', 'book.rating', 'book.bookmark', 'book.author_id', 'book.series_id', 'book.created_at', 'book.updated_at', 'book.last_read'
+		]);
 		$query->joinWith('author');
 		$query->joinWith('series');
 		$query->joinWith('tags');
@@ -57,7 +63,19 @@ class BookSearch extends Book {
 			],
 		]);
 		$this->load($params);
-
+		if ($this->length === 'S') {
+			$sizeStart = 0;
+			$sizeLast = 50000;
+		} elseif ($this->length === 'M') {
+			$sizeStart = 50000;
+			$sizeLast = 300000;
+		} elseif ($this->length === 'L') {
+			$sizeStart = 300000;
+			$sizeLast = 800000;
+		} elseif ($this->length === 'XL') {
+			$sizeStart = 800000;
+			$sizeLast = 999999999;
+		}
 		if (!$this->validate()) {
 			// uncomment the following line if you do not want to return any records when validation fails
 			// $query->where('0=1');
@@ -77,7 +95,9 @@ class BookSearch extends Book {
 			'book.updated_at' => $this->updated_at,
 			'book.last_read' => $this->last_read,
 		]);
-
+		$query->andFilterWhere([
+			'between', 'LENGTH(book.text)', $sizeStart, $sizeLast
+		]);
 		$query->andFilterWhere(['like', 'book.name', $this->name])
 			->andFilterWhere(['like', 'book.description', $this->description])
 			->andFilterWhere(['like', 'book.text', $this->text])
@@ -90,6 +110,10 @@ class BookSearch extends Book {
 //			->andFilterWhere(['like', Tag::tableName() . '.name', $this->getAttribute('tag_name')]);
 
 		$query->groupBy(['id']);
+		$dataProvider->sort->attributes['length'] = [
+			'asc' => ['length' => SORT_ASC],
+			'desc' => ['length' => SORT_DESC],
+		];
 		$dataProvider->sort->attributes['tags'] = [
 			'asc' => ['tag.name' => SORT_ASC],
 			'desc' => ['tag.name' => SORT_DESC],
