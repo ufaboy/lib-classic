@@ -42,8 +42,8 @@ class BookSearch extends Book {
 	 * @return ActiveDataProvider
 	 */
 	public function search($params): ActiveDataProvider {
-		$sizeStart = 0;
-		$sizeLast = 0;
+		$sizeStart = null;
+		$sizeLast = null;
 		/*        $query = Book::find()->select([
 					'id', 'name', 'description', 'source', 'cover', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'
 				]);*/
