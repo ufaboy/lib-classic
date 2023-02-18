@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					} else	return 'XL';
 				},
 //				'filterInputOptions' => ['prompt' => 'All', 'class' => 'form-control',],
-                'filter' => ['S' => 'S', 'M' => 'M' , 'L' => 'L', 'XL' => 'E' ]
+                'filter' => ['S' => 'S', 'M' => 'M' , 'L' => 'L', 'XL' => 'XL' ]
 			],
 			[
 				'label' => 'Description',
