@@ -51,7 +51,7 @@ p.description {
 .icon-book-wrapper .book-size {
     position: absolute;
     z-index: 5;
-    left: 15px;
+    left: 20px;
     top: 5px;
     text-align: center;
 }
