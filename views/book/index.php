@@ -27,11 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
 	5 => 'Epic',
 ] ?>
 <div class="book-index">
-<!--	--><?php //Pjax::begin(); ?>
+    <!--	--><?php //Pjax::begin(); ?>
     <!--	--><?php //echo $this->render('_search', ['model' => $searchModel]); ?>
     <!--	--><?php //echo $this->render('_sort_form', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
+	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
 		'tableOptions' => [
@@ -42,20 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'label' => 'ID',
 				'attribute' => 'id',
-				'contentOptions' => function ($model, $key, $index, $column) {
-					{
-						return ['data-title' => $column->label];
-					}
-				}
+				'content' => function ($model, $key, $index, $column) {
+					return Html::a($model->id, Url::to(['book/update', 'id' => $model->id]));
+				},
 			],
 			[
 				'label' => 'Name',
 				'attribute' => 'name',
-/*				'content' => function ($model, $key, $index, $column) {
-					return Html::a($model->name, Url::to(['book/view', 'id' => $model->id]));
-				},*/
+				/*				'content' => function ($model, $key, $index, $column) {
+									return Html::a($model->name, Url::to(['book/view', 'id' => $model->id]));
+								},*/
 			],
-            [
+			[
 				'label' => 'Size',
 				'attribute' => 'length',
 				'value' => function ($model, $key, $index, $column) {
@@ -65,19 +63,20 @@ $this->params['breadcrumbs'][] = $this->title;
 						return 'M';
 					} elseif ($model->length < 800000) {
 						return 'L';
-					} else	return 'XL';
+					} else    return 'XL';
 				},
 //				'filterInputOptions' => ['prompt' => 'All', 'class' => 'form-control',],
-                'filter' => ['S' => 'S', 'M' => 'M' , 'L' => 'L', 'XL' => 'XL' ]
+				'filter' => ['S' => 'S', 'M' => 'M', 'L' => 'L', 'XL' => 'XL']
 			],
 			[
 				'label' => 'Description',
 				'attribute' => 'description',
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
-						return ['data-title' => $column->label,
+						return [
+							'title' => $model->description,
 							'class' => [
-								'text-truncate', 'w-25', 'mobile-hide'
+								'text-truncate', 'w-20', 'mobile-hide'
 							]];
 					}
 				},
@@ -118,10 +117,27 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'label' => 'Rating',
 				'attribute' => 'rating',
-                'filter' => $ratings,
-//				'value' => function ($data) {
-//					return $ratings[$data['rating']]; // $data['name'] for array data, e.g. using SqlDataProvider.
-//				},
+				'filter' => $ratings,
+				'value' => function ($model) {
+					if ($model->rating === 5) {
+						return 'Epic';
+					} elseif ($model->rating === 4) {
+						return 'Good';
+					} elseif ($model->rating === 3) {
+						return 'Fair';
+					} elseif ($model->rating === 2) {
+						return 'Poor';
+					} elseif ($model->rating === 1) {
+						return 'Bad';
+					} else return '(not set)';
+				},
+				'contentOptions' => function ($model) {
+					{
+						if (!$model->rating) {
+							return ['class' => 'not-set'];
+						} else return [];
+					}
+				}
 			],
 			[
 				'label' => 'Author',
@@ -169,19 +185,19 @@ $this->params['breadcrumbs'][] = $this->title;
 					'class' => 'mobile-hide'
 				],
 			],
-			[
-				'class' => ActionColumn::className(),
-                'visibleButtons' => [
-					'view' => false,
-					'update' => true,
-					'delete' => false
-                ],
-				'urlCreator' => function ($action, $model, $key, $index, $column) {
-					return Url::toRoute([$action, 'id' => $model->id]);
-				}
-			],
+			/*			[
+							'class' => ActionColumn::className(),
+							'visibleButtons' => [
+								'view' => false,
+								'update' => true,
+								'delete' => false
+							],
+							'urlCreator' => function ($action, $model, $key, $index, $column) {
+								return Url::toRoute([$action, 'id' => $model->id]);
+							}
+						],*/
 		],
 	]); ?>
-<!--	--><?php //Pjax::end(); ?>
+    <!--	--><?php //Pjax::end(); ?>
 
 </div>

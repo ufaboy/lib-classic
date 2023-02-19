@@ -17,7 +17,7 @@ main > .container, main > .container-lg {
 }
 
 .not-set {
-    color: #c55;
+    color: #c55!important;
     font-style: italic;
 }
 mark {
