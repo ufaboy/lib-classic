@@ -1,3 +1,6 @@
+.book-index .table tbody tr:hover {
+    background-color: #2658a1;
+}
 .book-search {
     display: none;
     justify-content: center;

@@ -19,6 +19,13 @@ BookTableAsset::register($this);
 $this->title = 'Books';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php $ratings = [
+	1 => 'Bad',
+	2 => 'Poor',
+	3 => 'Fair',
+	4 => 'Good',
+	5 => 'Epic',
+] ?>
 <div class="book-index">
 <!--	--><?php //Pjax::begin(); ?>
     <!--	--><?php //echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -111,11 +118,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'label' => 'Rating',
 				'attribute' => 'rating',
-				'contentOptions' => function ($model, $key, $index, $column) {
-					{
-						return ['data-title' => $column->label];
-					}
-				}
+                'filter' => $ratings,
+//				'value' => function ($data) {
+//					return $ratings[$data['rating']]; // $data['name'] for array data, e.g. using SqlDataProvider.
+//				},
 			],
 			[
 				'label' => 'Author',
