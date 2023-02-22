@@ -42,7 +42,7 @@ use yii\widgets\ActiveForm;
 
 	<?php // $form->field($model, 'text') ?>
 
-	<?= $form->field($model, 'view_count') ?>
+<!--	--><?php //= $form->field($model, 'view_count') ?>
 
 	<?php echo $form->field($model, 'length')->dropdownList(
 		$sizeOptions, ['prompt' => 'Select Size']
@@ -74,9 +74,10 @@ use yii\widgets\ActiveForm;
 
 	<?php // echo $form->field($model, 'last_read') ?>
 
-    <div class="form-group actions">
+    <div class="form-group actions mt-3">
 		<?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-		<?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary',]) ?>
+		<?= Html::button('Close', ['class' => 'btn close-btn btn-outline-danger',]) ?>
+		<?= Html::resetButton('Reset', ['class' => 'btn btn-reset btn-outline-secondary',]) ?>
     </div>
 
 	<?php ActiveForm::end(); ?>

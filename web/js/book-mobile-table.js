@@ -57,7 +57,7 @@ function touchEnd(e) {
 
 function showFilter() {
     $('.book-search').css('display', 'flex');
-    $('.form-filter-book').on('reset', () => hideFilter());
+    $('.close-btn').on('click', () => hideFilter());
     $('body').on('keyup', e => {
         if (e.key === "Escape") hideFilter();
     });

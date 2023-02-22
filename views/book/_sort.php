@@ -20,6 +20,6 @@ use yii\widgets\ActiveForm;
             <li class="sort-li"><?= $sort->link('updated_at') ?></li>
             <li class="sort-li"><?= $sort->link('last_read') ?></li>
         </ul>
-		<?= Html::resetButton('Reset', ['id' =>'btn-sort-reset', 'class' => 'btn btn-outline-secondary', ]) ?>
+		<?= Html::resetButton('Close', ['id' =>'btn-sort-reset', 'class' => 'btn btn-danger', ]) ?>
     </div>
 </div>
