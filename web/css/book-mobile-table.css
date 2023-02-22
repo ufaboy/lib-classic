@@ -84,7 +84,7 @@ input[type="checkbox"]:checked + a .info-collapsed {
     height: 100%;
     left: 0;
     top: 0;
-    z-index: 0;
+    z-index: 15;
     background: rgba(238, 238, 238, 0.5);
 }
 

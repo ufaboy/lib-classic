@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
 	] ?>
 	<?php // $form->field($model, 'id') ?>
 
-	<?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+	<?= $form->field($model, 'name')->textInput(['autofocus' => true, 'type' => 'search']) ?>
 
 	<?php // $form->field($model, 'description') ?>
 

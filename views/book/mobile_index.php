@@ -25,7 +25,7 @@ $this->registerJsVar('count', $dataProvider->getCount());
 						<?php if($model->cover) : ?>
                             <img src="<?= $model->cover;?>" alt="">
 						<?php else : ?>
-							<?php echo $this->render('_icon_book', ['model' => $searchModel]); ?>
+							<?php echo $this->render('_icon_book', ['model' => $model]); ?>
 						<?php endif; ?>
                     </label>
                     <input type="checkbox" hidden id="<?= $model->id;?>">
