@@ -43,15 +43,19 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'ID',
 				'attribute' => 'id',
 				'content' => function ($model, $key, $index, $column) {
-					return Html::a($model->id, Url::to(['book/update', 'id' => $model->id]));
+					return Html::a($model->id, Url::to(['book/update', 'id' => $model->id]), [
+						'class' => 'link-book'
+					]);
 				},
 			],
 			[
 				'label' => 'Name',
 				'attribute' => 'name',
-				/*				'content' => function ($model, $key, $index, $column) {
-									return Html::a($model->name, Url::to(['book/view', 'id' => $model->id]));
-								},*/
+				'content' => function ($model, $key, $index, $column) {
+					return Html::a($model->name, Url::to(['book/view', 'id' => $model->id]), [
+                            'class' => 'link-book'
+                    ]);
+				},
 			],
 			[
 				'label' => 'Size',

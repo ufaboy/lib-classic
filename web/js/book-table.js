@@ -9,4 +9,4 @@ function openBook(e) {
     // console.log('openBook', {host: window.location, url:url})
     window.location = url;
 }
-tableElement.addEventListener('click', openBook)
+// tableElement.addEventListener('click', openBook)
