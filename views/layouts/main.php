@@ -64,7 +64,7 @@ $this->registerLinkTag(['rel' => 'manifest', 'href' => '/manifest.webmanifest'])
 			. Html::endForm();
 	}
     if (str_contains($this->context->route, 'book')) {
-		echo Html::a('Create Book', ['create'], ['class' => 'btn btn-info']);
+		echo Html::a('Create Book', ['create'], ['class' => 'btn btn-info flex-nowrap']);
 	}
     NavBar::end();
     ?>
