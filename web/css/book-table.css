@@ -6,7 +6,6 @@
     color: #726969;
 }
 .book-index .table tbody tr:hover {
-    background-color: slategray;
 }
 .book-index .table tbody tr:hover .link-book, .book-index .table tbody tr:hover td {
     color: white;
@@ -85,7 +84,7 @@
 }
 @media (prefers-color-scheme: dark) {
     .link-book {
-        color: black;
+        color: #F9F9F9;
         text-decoration: none;
     }
     .book-search {
@@ -96,7 +95,7 @@
         background: #475569;
     }
     .pagination li a {
-        color: black;
+        color: #F9F9F9;
     }
     .pagination li.active a {
         background-color: dimgrey;

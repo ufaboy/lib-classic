@@ -4,7 +4,7 @@
 main > .container, main > .container-lg {
     padding: 70px 15px 20px;
 }
-#main {
+body {
     background-color: #F9F9F9;
 }
 .navbar-collapse, .navbar-nav .nav {
