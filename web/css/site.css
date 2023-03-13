@@ -7,7 +7,7 @@ main > .container, main > .container-lg {
 #main {
     background-color: #F9F9F9;
 }
-.navbar-collapse {
+.navbar-collapse, .navbar-nav .nav {
     flex-wrap: nowrap;
 }
 .footer {
