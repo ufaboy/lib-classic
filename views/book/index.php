@@ -159,9 +159,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				'filter' => Series::find()->select(['name'])->orderBy('name ASC')->indexBy('name')->column(),
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
-						return ['data-title' => $column->label];
+						return ['data-title' => $column->label, 'class' => 'mobile-hide'];
 					}
-				}
+				},
+				'headerOptions' => [
+					'class' => 'mobile-hide'
+				],
+				'filterOptions' => [
+					'class' => 'mobile-hide'
+				],
 			],
 			[
 				'label' => 'Updated',
