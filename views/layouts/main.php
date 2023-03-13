@@ -56,7 +56,7 @@ $this->registerLinkTag(['rel' => 'manifest', 'href' => '/manifest.webmanifest'])
 	if (Yii::$app->user->isGuest) {
 		echo Html::tag('div',Html::a('Login',['/auth/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
 	} else {
-		echo Html::beginForm(['/auth/logout'], 'post', ['class' => 'd-flex'])
+		echo Html::beginForm(['/auth/logout'], 'post', ['class' => 'd-flex flex-nowrap'])
 			. Html::submitButton(
 				'Logout (' . Yii::$app->user->identity->username . ')',
 				['class' => 'btn btn-link logout text-decoration-none']
@@ -64,7 +64,7 @@ $this->registerLinkTag(['rel' => 'manifest', 'href' => '/manifest.webmanifest'])
 			. Html::endForm();
 	}
     if (str_contains($this->context->route, 'book')) {
-		echo Html::a('Create Book', ['create'], ['class' => 'btn btn-info flex-nowrap']);
+		echo Html::a('Create Book', ['create'], ['class' => 'btn btn-info flex-nowrap text-nowrap']);
 	}
     NavBar::end();
     ?>
