@@ -172,12 +172,12 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'label' => 'Updated',
 				'attribute' => 'updated_at',
-				'format' => ['date', 'php:y/m/d'],
+				'format' => ['date', 'php:d/m/y'],
 			],
 			[
 				'label' => 'Last read',
 				'attribute' => 'last_read',
-				'format' => ['date', 'php:y/m/d'],
+				'format' => ['date', 'php:d/m/y'],
 				'contentOptions' => function ($model, $key, $index, $column) {
 					{
 						return ['data-title' => $column->label, 'class' => 'text-nowrap mobile-hide'];
