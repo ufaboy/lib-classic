@@ -29,7 +29,7 @@ class BookController extends Controller {
 					'rules' => [
 						[
 							'allow' => true,
-							'actions' => ['index', 'create', 'view', 'update', 'delete'],
+							'actions' => ['index', 'create', 'view', 'update', 'update-text', 'delete'],
 							'roles' => ['@'],
 						],
 					],
@@ -145,6 +145,17 @@ class BookController extends Controller {
 		}
 
 		return $this->render('update', [
+			'model' => $model,
+		]);
+	}
+	public function actionUpdateText($id) {
+		$model = $this->findModel($id);
+		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+			Yii::$app->session->setFlash('success', 'Success', true);
+			return $this->redirect(['view', 'id' => $model->id]);
+		}
+
+		return $this->render('update-text', [
 			'model' => $model,
 		]);
 	}
