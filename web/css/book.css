@@ -1,4 +1,6 @@
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     text-align: center;
 }
 
@@ -6,7 +8,8 @@ h1 {
     margin: 0 0 1rem 0;
 }
 
-h2, h3 {
+h2,
+h3 {
     margin: 1rem 0;
 }
 
@@ -23,6 +26,12 @@ p {
     text-indent: 1rem;
     margin: 0 0 0.3rem;
 }
+
+blockquote {
+    padding: 1rem;
+    background-color: #eee;
+}
+
 #scrolling-progress {
     position: fixed;
     left: 0;
@@ -30,6 +39,7 @@ p {
     width: 4px;
     background-color: #ffc107;
 }
+
 span[data-tooltip]:hover {
     color: crimson;
 }
@@ -57,27 +67,39 @@ span[data-tooltip]:hover {
     top: 0;
     background-color: var(--bs-green);
 }
+
 .bottom {
     width: calc(100% - 30px);
     padding: 3rem 0 0 0;
     position: fixed;
     bottom: -3rem;
 }
+
 .bottom select {
     width: 100%;
     padding: 5px;
 }
+
 .bottom.active {
     animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
+
+@media (prefers-color-scheme: dark) {
+    blockquote {
+        background-color: #343a40;
+    }
+}
+
 @keyframes slide-top {
     0% {
         transform: translateY(0);
     }
+
     100% {
         transform: translateY(-3rem);
     }
 }
+
 @media only screen and (max-width: 892px) {
     .book-view {
         max-width: initial;
@@ -86,7 +108,9 @@ span[data-tooltip]:hover {
 }
 
 @media only screen and (min-width: 360px) and (max-width: 892px) and (orientation: landscape) {
-    .picture, .video {
+
+    .picture,
+    .video {
         float: left;
         margin: 0 0.5rem 0.5rem 0;
         max-width: 394px;
@@ -94,13 +118,17 @@ span[data-tooltip]:hover {
 }
 
 @media only screen and (min-width: 360px) and (max-width: 892px) and (orientation: portrait) {
-    .picture, .video {
+
+    .picture,
+    .video {
         width: 100%;
     }
 }
 
 @media only screen and (min-width: 893px) and (max-width: 1368px) {
-    .picture, .video {
+
+    .picture,
+    .video {
         float: left;
         width: 375px;
         margin: 0.5rem 1rem 0.5rem 0;
@@ -108,7 +136,9 @@ span[data-tooltip]:hover {
 }
 
 @media only screen and (min-width: 1368px) {
-    .picture, .video {
+
+    .picture,
+    .video {
         float: left;
         width: 375px;
         margin: 0.5rem 1rem 0.5rem 0;
