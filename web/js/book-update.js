@@ -8,6 +8,7 @@ createApp({
     },
     mounted() {
         this.images = images
+        console.log('images', images)
     },
     methods: {
         inputFiles(evt) {
