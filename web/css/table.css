@@ -1,3 +1,6 @@
+.table {
+    --bs-table-bg: transparent;
+}
 .table tr th:first-of-type, td:first-of-type {
     min-width: 4rem;
 }
