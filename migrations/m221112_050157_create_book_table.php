@@ -20,7 +20,7 @@ class m221112_050157_create_book_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'description' => $this->string(1024),
-            'text' => 'MEDIUMTEXT',
+            'text' => $this->text(),
             'view_count' => $this->integer()->notNull()->defaultValue(0),
             'rating' => $this->integer(),
             'bookmark' => $this->integer(),
