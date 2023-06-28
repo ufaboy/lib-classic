@@ -20,19 +20,8 @@ services:
       - app
 
   db:
-    image: mysql:8.0
-    container_name: basic-db
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-
-  db-pg:
     image: postgres:15
-    container_name: basic-db-pg
+    container_name: basic-db
     ports:
       - "5432:5432"
     environment:
@@ -45,3 +34,5 @@ services:
     container_name: basic-adminer
     ports:
       - 8080:8080
+    depends_on:
+      - db
