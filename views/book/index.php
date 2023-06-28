@@ -61,13 +61,13 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'Size',
 				'attribute' => 'length',
 				'value' => function ($model, $key, $index, $column) {
-					if ($model->length < 50000) {
+					if ((int)$model->length < 50000) {
 						return 'S';
-					} elseif ($model->length < 300000) {
+					} elseif ((int)$model->length < 300000) {
 						return 'M';
-					} elseif ($model->length < 800000) {
+					} elseif ((int)$model->length < 500000) {
 						return 'L';
-					} else    return 'XL';
+					} else return 'XL';
 				},
 //				'filterInputOptions' => ['prompt' => 'All', 'class' => 'form-control',],
 				'filter' => ['S' => 'S', 'M' => 'M', 'L' => 'L', 'XL' => 'XL']

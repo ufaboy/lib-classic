@@ -65,15 +65,15 @@ class BookSearch extends Book {
 		$this->load($params);
 		if ($this->length === 'S') {
 			$sizeStart = 0;
-			$sizeLast = 50000;
+			$sizeLast = 49999;
 		} elseif ($this->length === 'M') {
 			$sizeStart = 50000;
-			$sizeLast = 300000;
+			$sizeLast = 299999;
 		} elseif ($this->length === 'L') {
 			$sizeStart = 300000;
-			$sizeLast = 800000;
+			$sizeLast = 499999;
 		} elseif ($this->length === 'XL') {
-			$sizeStart = 800000;
+			$sizeStart = 500000;
 			$sizeLast = 999999999;
 		}
 		if (!$this->validate()) {
@@ -109,7 +109,7 @@ class BookSearch extends Book {
 //			->andFilterWhere(['like', Tag::tableName() . '.name', $this->tag_name]);
 //			->andFilterWhere(['like', Tag::tableName() . '.name', $this->getAttribute('tag_name')]);
 
-		$query->groupBy(['id']);
+		$query->groupBy(['book.id']);
 		$dataProvider->sort->attributes['length'] = [
 			'asc' => ['length' => SORT_ASC],
 			'desc' => ['length' => SORT_DESC],
