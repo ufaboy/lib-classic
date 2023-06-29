@@ -29,6 +29,10 @@ TableAsset::register($this);
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+		'pager' => [
+			'firstPageLabel' => 'First',
+			'lastPageLabel'  => 'Last'
+		],
 		'tableOptions' => [
 			'class' => 'table table-mobile table-bordered'
 		],
