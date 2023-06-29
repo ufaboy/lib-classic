@@ -23,7 +23,7 @@ $this->registerJsVar('count', $dataProvider->getCount());
                 <div class="book">
                     <label class="preview" for="<?= $model->id;?>">
 						<?php if($model->cover) : ?>
-                            <img src="<?= $model->cover;?>" alt="">
+                            <img src="<?= $model->cover;?>" alt="<?= $model->name;?> cover" onerror="this.onerror=null;this.src='/icons/book-dead-solid.svg';">
 						<?php else : ?>
 							<?php echo $this->render('_icon_book', ['model' => $model]); ?>
 						<?php endif; ?>
