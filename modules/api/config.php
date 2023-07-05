@@ -21,11 +21,14 @@ $config = [
 			],
 		],
 		'db' => $db,
-/*		'request' => [
+		'request' => [
+			'class' => 'yii\web\Request',
 			'parsers' => [
 				'application/json' => 'yii\web\JsonParser',
 			],
-		],*/
+			'enableCookieValidation' => false,
+			'enableCsrfValidation' => false,
+		],
 		'urlManager' => [
 			'class' => 'yii\web\UrlManager',
 			'enablePrettyUrl' => true,
