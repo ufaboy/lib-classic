@@ -97,11 +97,15 @@ class BookSearch extends Book {
 //			'author.name' => $params['author.name'],
 //			'author.name' => $this->authorName,
 //			'series.name' => $this->seriesName,
-			'book.created_at' => $this->created_at,
-			'book.updated_at' => $this->updated_at,
-			'book.last_read' => $this->last_read,
+//			'book.created_at' => $this->created_at,
+//			'book.updated_at' => $this->updated_at,
+//			'book.last_read' => $this->last_read,
 		]);
-
+		$query->andFilterWhere([
+			'>=', 'book.created_at', $this->created_at,
+			'>=', 'book.updated_at', $this->updated_at,
+			'>=', 'book.last_read', $this->last_read,
+		]);
 		$query->andFilterWhere(['ilike', 'book.name', $this->name])
 			->andFilterWhere(['ilike', 'book.description', $this->description])
 			->andFilterWhere(['ilike', 'book.text', $this->text])
