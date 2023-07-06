@@ -11,8 +11,12 @@ use app\modules\api\models\Book;
  */
 class BookSearch extends Book {
 	public string $tag = '';
-	public string $author_name = '';
-	public string $series_name = '';
+	public string $authorName = '';
+	public string $seriesName = '';
+
+	public $sort;
+	public $perPage = 10;
+	public $page = 1;
 
 	public function attributes(): array {
 		return array_merge(parent::attributes(), ['author.name', 'series.name']);
@@ -38,7 +42,7 @@ class BookSearch extends Book {
 	public function rules(): array {
 		return [
 			[['id', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
-			[['name', 'description', 'text', 'source', 'cover', 'tag', 'author_name', 'series_name', 'author.name', 'series.name'], 'safe'],
+			[['name', 'description', 'text', 'source', 'cover', 'tag', 'authorName', 'seriesName', 'author.name', 'series.name', 'perPage', 'sort', 'page'], 'safe'],
 		];
 	}
 
@@ -66,7 +70,7 @@ class BookSearch extends Book {
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'pagination' => [
-				'pageSize' => $params['per-page'],
+				'pageSize' => $params['perPage'],
 			],
 			'sort' => [
 				'defaultOrder' => [
@@ -91,21 +95,21 @@ class BookSearch extends Book {
 			'book.bookmark' => $this->bookmark,
 			'tag.name' => $this->tag,
 //			'author.name' => $params['author.name'],
-			'author.name' => $this->author_name,
-			'series.name' => $this->series_name,
+//			'author.name' => $this->authorName,
+//			'series.name' => $this->seriesName,
 			'book.created_at' => $this->created_at,
 			'book.updated_at' => $this->updated_at,
 			'book.last_read' => $this->last_read,
 		]);
 
-		$query->andFilterWhere(['like', 'book.name', $this->name])
-			->andFilterWhere(['like', 'book.description', $this->description])
-			->andFilterWhere(['like', 'book.text', $this->text])
-			->andFilterWhere(['like', 'book.source', $this->source])
-			->andFilterWhere(['like', 'author.name', $this->getAttribute('author.name')])
-			->andFilterWhere(['like', 'series.name', $this->getAttribute('series.name')]);
+		$query->andFilterWhere(['ilike', 'book.name', $this->name])
+			->andFilterWhere(['ilike', 'book.description', $this->description])
+			->andFilterWhere(['ilike', 'book.text', $this->text])
+			->andFilterWhere(['ilike', 'book.source', $this->source])
+			->andFilterWhere(['ilike', 'author.name', $this->authorName])
+			->andFilterWhere(['ilike', 'series.name', $this->seriesName]);
 
-		$query->groupBy(['id']);
+		$query->groupBy(['book.id']);
 		$dataProvider->sort->attributes['tags'] = [
 			'asc' => ['tag.name' => SORT_ASC],
 			'desc' => ['tag.name' => SORT_DESC],
