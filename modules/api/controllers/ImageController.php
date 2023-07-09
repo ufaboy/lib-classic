@@ -108,6 +108,9 @@ class ImageController extends Controller {
 
 		return $this->redirect(['index']);
 	}
+	public function actionDeleteAll($bookId) {
+		return Image::deleteAll(['book_id' => $bookId]);
+	}
 
 	/**
 	 * Finds the Image model based on its primary key value.

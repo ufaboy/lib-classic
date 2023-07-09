@@ -7,10 +7,13 @@ use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 use app\modules\api\models\Book;
 use app\modules\api\models\BookSearch;
+use app\modules\api\models\Upload;
+use yii\web\UploadedFile;
 
 /**
  * BookController implements the CRUD actions for Book model.
@@ -78,54 +81,55 @@ class BookController extends Controller {
 	/**
 	 * Creates a new Book model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return string|\yii\web\Response
+	 * @return array|Book
 	 */
 	public function actionCreate() {
 		$model = new Book();
-
-		if ($this->request->isPost) {
-			if ($model->load($this->request->post()) && $model->save()) {
-				return $this->redirect(['view', 'id' => $model->id]);
-			}
-		} else {
-			$model->loadDefaultValues();
+		$params = Yii::$app->request->bodyParams;
+		if ($model->load($params, '') && $model->save()) {
+			return $model;
 		}
-
-		return $this->render('create', [
-			'model' => $model,
-		]);
+		Yii::$app->response->setStatusCode(500);
+		return ['message' => 'Failed to create book', 'errors' => $model->getErrors()];
 	}
 
 	/**
 	 * Updates an existing Book model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param int $id ID
-	 * @return string|\yii\web\Response
+	 * @return array | Book
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionUpdate($id) {
+		$params = Yii::$app->request->bodyParams;
 		$model = $this->findModel($id);
-
-		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+		$upload = new Upload();
+//		Yii::debug(VarDumper::dumpAsString(UploadedFile::getInstances($upload, 'imageFiles')));
+		$upload->imageFiles = UploadedFile::getInstances($upload, 'imageFiles');
+		if ($model->load($params, '') && $model->save(false)) {
+			$upload->book_id = $model->id;
+			$upload->upload();
+			return $model;
 		}
 
-		return $this->render('update', [
-			'model' => $model,
-		]);
+//		$model->upload = UploadedFile::getInstance($model, 'upload');
+//		$params = Yii::$app->request->bodyParams;
+//		if ($model->load($params, '') && $model->save()) {
+//			return $model;
+//		}
+		Yii::$app->response->setStatusCode(500);
+		return ['message' => 'Failed to update book', 'errors' => $model->getErrors()];
 	}
 
 	/**
 	 * Deletes an existing Book model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param int $id ID
-	 * @return \yii\web\Response
+	 * @return false|int
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionDelete($id) {
-		$this->findModel($id)->delete();
-
-		return $this->redirect(['index']);
+		return $this->findModel($id)->delete();
 	}
 
 	/**
@@ -141,5 +145,29 @@ class BookController extends Controller {
 		}
 
 		throw new NotFoundHttpException('The requested page does not exist.');
-	}
+
+
+/*		protected function handlePostSave(Book $model)
+		{
+			if ($model->load(Yii::$app->request->post())) {
+				$upload = new Upload();
+				$upload->imageFiles = UploadedFile::getInstance($model, 'upload');
+
+				if ($model->validate()) {
+					if ($model->upload) {
+						$filePath = 'uploads/' . $model->upload->baseName . '.' . $model->upload->extension;
+						if ($model->upload->saveAs($filePath)) {
+							$model->image = $filePath;
+						}
+					}
+
+					if ($model->save(false)) {
+						$upload->book_id = $model->id;
+						$upload->upload();
+					}
+						return $model;
+					}
+				}
+			}*/
+		}
 }
