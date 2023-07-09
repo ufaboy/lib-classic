@@ -86,20 +86,15 @@ class BookSearch extends Book {
 			// $query->where('0=1');
 			return $dataProvider;
 		}
+		$query->select(["book.*", 'count("tag"."id") AS tag_count']);
 
-		// grid filtering conditions
 		$query->andFilterWhere([
 			'book.id' => $this->id,
 			'book.view_count' => $this->view_count,
 			'book.rating' => $this->rating,
 			'book.bookmark' => $this->bookmark,
 			'tag.name' => $this->tag,
-//			'author.name' => $params['author.name'],
-//			'author.name' => $this->authorName,
-//			'series.name' => $this->seriesName,
-//			'book.created_at' => $this->created_at,
-//			'book.updated_at' => $this->updated_at,
-//			'book.last_read' => $this->last_read,
+
 		]);
 		$query->andFilterWhere([
 			'>=', 'book.created_at', $this->created_at,
@@ -113,19 +108,24 @@ class BookSearch extends Book {
 			->andFilterWhere(['ilike', 'author.name', $this->authorName])
 			->andFilterWhere(['ilike', 'series.name', $this->seriesName]);
 
-		$query->groupBy(['book.id']);
+		$query->groupBy(['book.id', 'author.name', 'series.name']);
 		$dataProvider->sort->attributes['tags'] = [
-			'asc' => ['tag.name' => SORT_ASC],
-			'desc' => ['tag.name' => SORT_DESC],
+			'asc' => ['tag_count' => SORT_ASC],
+			'desc' => ['tag_count' => SORT_DESC],
 		];
-		$dataProvider->sort->attributes['author.name'] = [
+		$dataProvider->sort->attributes['author'] = [
 			'asc' => ['author.name' => SORT_ASC],
 			'desc' => ['author.name' => SORT_DESC],
 		];
-		$dataProvider->sort->attributes['series.name'] = [
+		$dataProvider->sort->attributes['series'] = [
 			'asc' => ['series.name' => SORT_ASC],
 			'desc' => ['series.name' => SORT_DESC],
 		];
+		$dataProvider->sort->attributes['rating'] = [
+			'asc' => [new \yii\db\Expression('rating ASC NULLS FIRST'),],
+			'desc' => [new \yii\db\Expression('rating DESC NULLS LAST'),],
+		];
+
 		return $dataProvider;
 	}
 }
