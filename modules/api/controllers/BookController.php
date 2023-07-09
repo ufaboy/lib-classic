@@ -83,14 +83,18 @@ class BookController extends Controller {
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return array|Book
 	 */
-	public function actionCreate() {
+	public function actionCreate(): Book|array {
 		$model = new Book();
 		$params = Yii::$app->request->bodyParams;
-		if ($model->load($params, '') && $model->save()) {
+		$upload = new Upload();
+		$upload->imageFiles = UploadedFile::getInstances($upload, 'imageFiles');
+		if ($model->load($params, '') && $model->save(false)) {
+			$upload->book_id = $model->id;
+			$upload->upload();
 			return $model;
 		}
 		Yii::$app->response->setStatusCode(500);
-		return ['message' => 'Failed to create book', 'errors' => $model->getErrors()];
+		return ['message' => 'Failed to update book', 'errors' => $model->getErrors()];
 	}
 
 	/**
@@ -111,12 +115,6 @@ class BookController extends Controller {
 			$upload->upload();
 			return $model;
 		}
-
-//		$model->upload = UploadedFile::getInstance($model, 'upload');
-//		$params = Yii::$app->request->bodyParams;
-//		if ($model->load($params, '') && $model->save()) {
-//			return $model;
-//		}
 		Yii::$app->response->setStatusCode(500);
 		return ['message' => 'Failed to update book', 'errors' => $model->getErrors()];
 	}

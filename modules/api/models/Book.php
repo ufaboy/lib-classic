@@ -34,6 +34,7 @@ use yii\db\ActiveRecord;
 class Book extends ActiveRecord {
 	public $tag_ids;
 	public $upload;
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -65,10 +66,25 @@ class Book extends ActiveRecord {
 			[['series_id'], 'exist', 'skipOnError' => true, 'targetClass' => Series::className(), 'targetAttribute' => ['series_id' => 'id']],
 		];
 	}
-	public function extraFields()
-	{
-		return ['images', 'author', 'series', 'tags'];
+
+	public function fields() {
+		return [
+			'id',
+			'description',
+			'text',
+			'view_count',
+			'rating',
+			'bookmark',
+			'source',
+			'cover',
+			'images',
+			'author',
+			'series',
+			'tags',
+			'created_at',
+			'updated_at',];
 	}
+
 	/**
 	 * {@inheritdoc}
 	 */
