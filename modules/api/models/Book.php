@@ -70,6 +70,7 @@ class Book extends ActiveRecord {
 	public function fields() {
 		return [
 			'id',
+			'name',
 			'description',
 			'text',
 			'view_count',
@@ -77,12 +78,19 @@ class Book extends ActiveRecord {
 			'bookmark',
 			'source',
 			'cover',
-			'images',
-			'author',
-			'series',
-			'tags',
+//			'author',
+//			'series',
 			'created_at',
 			'updated_at',];
+	}
+
+	public function extraFields() {
+		return [
+			'tags',
+			'author',
+			'series',
+			'images',
+		];
 	}
 
 	/**

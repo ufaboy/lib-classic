@@ -88,7 +88,7 @@ class BookController extends Controller {
 		$params = Yii::$app->request->bodyParams;
 		$upload = new Upload();
 		$upload->imageFiles = UploadedFile::getInstances($upload, 'imageFiles');
-		if ($model->load($params, '') && $model->save(false)) {
+		if ($model->load($params, 'Book') && $model->save(false)) {
 			$upload->book_id = $model->id;
 			$upload->upload();
 			return $model;
@@ -110,7 +110,7 @@ class BookController extends Controller {
 		$upload = new Upload();
 //		Yii::debug(VarDumper::dumpAsString(UploadedFile::getInstances($upload, 'imageFiles')));
 		$upload->imageFiles = UploadedFile::getInstances($upload, 'imageFiles');
-		if ($model->load($params, '') && $model->save(false)) {
+		if ($model->load($params, 'Book') && $model->save(false)) {
 			$upload->book_id = $model->id;
 			$upload->upload();
 			return $model;
