@@ -9,13 +9,16 @@ use yii\data\ActiveDataProvider;
  * AuthorSearch represents the model behind the search form of `app\common\models\Author`.
  */
 class AuthorSearch extends Author {
+	public $sort;
+	public $perPage = 10;
+	public $page = 1;
 	/**
 	 * {@inheritdoc}
 	 */
 	public function rules(): array {
 		return [
 			[['id'], 'integer'],
-			[['name', 'url'], 'safe'],
+			[['name', 'url', 'perPage', 'sort', 'page'], 'safe'],
 		];
 	}
 
@@ -41,6 +44,14 @@ class AuthorSearch extends Author {
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
+			'pagination' => [
+				'pageSize' => $params['perPage'],
+			],
+			'sort' => [
+				'defaultOrder' => [
+					'id' => SORT_DESC,
+				],
+			],
 		]);
 
 		$this->load($params);

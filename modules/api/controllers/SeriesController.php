@@ -40,6 +40,11 @@ class SeriesController extends Controller {
 		return $behaviors;
 	}
 
+	public $serializer = [
+		'class' => 'yii\rest\Serializer',
+		'collectionEnvelope' => 'items',
+	];
+
 	/**
 	 * Lists all Series models.
 	 *

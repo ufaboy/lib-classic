@@ -40,6 +40,11 @@ class AuthorController extends Controller {
 		return $behaviors;
 	}
 
+	public $serializer = [
+		'class' => 'yii\rest\Serializer',
+		'collectionEnvelope' => 'items',
+	];
+
 	/**
 	 * Lists all Author models.
 	 *
@@ -48,7 +53,6 @@ class AuthorController extends Controller {
 	public function actionIndex() {
 		$searchModel = new AuthorSearch();
 		return $searchModel->search($this->request->queryParams);
-
 	}
 
 	/**
