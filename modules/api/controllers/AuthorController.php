@@ -58,19 +58,17 @@ class AuthorController extends Controller {
 	/**
 	 * Displays a single Author model.
 	 * @param int $id ID
-	 * @return string
+	 * @return Author
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionView($id) {
-		return $this->render('view', [
-			'model' => $this->findModel($id),
-		]);
+		return $this->findModel($id);
 	}
 
 	/**
 	 * Creates a new Author model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return string|\yii\web\Response
+	 * @return \yii\web\Response|Author
 	 */
 	public function actionCreate() {
 		$model = new Author();
@@ -83,16 +81,14 @@ class AuthorController extends Controller {
 			$model->loadDefaultValues();
 		}
 
-		return $this->render('create', [
-			'model' => $model,
-		]);
+		return $model;
 	}
 
 	/**
 	 * Updates an existing Author model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param int $id ID
-	 * @return string|\yii\web\Response
+	 * @return Author|\yii\web\Response
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionUpdate($id) {
@@ -102,9 +98,7 @@ class AuthorController extends Controller {
 			return $this->redirect(['view', 'id' => $model->id]);
 		}
 
-		return $this->render('update', [
-			'model' => $model,
-		]);
+		return $model;
 	}
 
 	/**

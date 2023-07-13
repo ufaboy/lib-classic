@@ -120,6 +120,24 @@ class BookController extends Controller {
 	}
 
 	/**
+	 * Updates an existing bookmark.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param int $id ID
+	 * @return array | Book
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	public function actionUpdateBookmark($id) {
+		$params = Yii::$app->request->bodyParams;
+		$model = $this->findModel($id);
+//		Yii::debug(VarDumper::dumpAsString(UploadedFile::getInstances($upload, 'imageFiles')));
+		if ($model->load($params, '') && $model->save(false)) {
+			return $model;
+		}
+		Yii::$app->response->setStatusCode(500);
+		return ['message' => 'Failed to update bookmark', 'errors' => $model->getErrors()];
+	}
+
+	/**
 	 * Deletes an existing Book model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param int $id ID

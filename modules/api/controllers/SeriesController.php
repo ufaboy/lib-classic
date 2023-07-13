@@ -58,19 +58,17 @@ class SeriesController extends Controller {
 	/**
 	 * Displays a single Series model.
 	 * @param int $id ID
-	 * @return string
+	 * @return Series
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionView($id) {
-		return $this->render('view', [
-			'model' => $this->findModel($id),
-		]);
+		return $this->findModel($id);
 	}
 
 	/**
 	 * Creates a new Series model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return string|\yii\web\Response
+	 * @return \yii\web\Response|Series
 	 */
 	public function actionCreate() {
 		$model = new Series();
@@ -83,16 +81,14 @@ class SeriesController extends Controller {
 			$model->loadDefaultValues();
 		}
 
-		return $this->render('create', [
-			'model' => $model,
-		]);
+		return $model;
 	}
 
 	/**
 	 * Updates an existing Series model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param int $id ID
-	 * @return string|\yii\web\Response
+	 * @return Series|\yii\web\Response
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionUpdate($id) {
@@ -102,22 +98,18 @@ class SeriesController extends Controller {
 			return $this->redirect(['view', 'id' => $model->id]);
 		}
 
-		return $this->render('update', [
-			'model' => $model,
-		]);
+		return $model;
 	}
 
 	/**
 	 * Deletes an existing Series model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param int $id ID
-	 * @return \yii\web\Response
+	 * @return false|int
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionDelete($id) {
-		$this->findModel($id)->delete();
-
-		return $this->redirect(['index']);
+		return $this->findModel($id)->delete();
 	}
 
 	/**
