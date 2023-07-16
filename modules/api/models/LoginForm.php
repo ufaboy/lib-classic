@@ -51,7 +51,7 @@ class LoginForm extends Model {
 	 */
 	public function login(): bool {
 		$user = $this->getUser();
-		if ($user->validatePassword($this->password)) {
+		if ($user && $user->validatePassword($this->password)) {
 			return Yii::$app->user->login($this->getUser(), 86400);
 		}
 		return false;
@@ -62,7 +62,7 @@ class LoginForm extends Model {
 	 *
 	 * @return User|null
 	 */
-	public function getUser(): ?User {
+	public function getUser(): User|null {
 		if ($this->_user === false) {
 			$this->_user = User::findByUsername($this->username);
 		}

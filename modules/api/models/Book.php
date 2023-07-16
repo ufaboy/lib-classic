@@ -58,7 +58,7 @@ class Book extends ActiveRecord {
 		return [
 			[['text'], 'string'],
 			[['view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
-			[['tag_ids'], 'safe'],
+			[['tag_ids', 'bookmark'], 'safe'],
 			[['name', 'cover'], 'string', 'max' => 255],
 			[['description', 'source'], 'string', 'max' => 1024],
 			[['upload'], 'file', 'extensions' => 'png, jpg, jpeg, webp, gif, webm, mp4, mp3', 'checkExtensionByMimeType' => false],
