@@ -2,6 +2,7 @@
 
 namespace app\modules\api\controllers;
 
+use app\modules\api\models\BookImages;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
@@ -148,6 +149,13 @@ class BookController extends Controller {
 		return $this->findModel($id)->delete();
 	}
 
+	public function actionImages() {
+//		$result = Book::find()->select(['book.id', 'name', 'images'])->joinWith('images')->all();
+//		return $result;
+		$searchModel = new BookImages();
+		return $searchModel->search($this->request->queryParams);
+	}
+
 	/**
 	 * Finds the Book model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
@@ -161,29 +169,5 @@ class BookController extends Controller {
 		}
 
 		throw new NotFoundHttpException('The requested page does not exist.');
-
-
-/*		protected function handlePostSave(Book $model)
-		{
-			if ($model->load(Yii::$app->request->post())) {
-				$upload = new Upload();
-				$upload->imageFiles = UploadedFile::getInstance($model, 'upload');
-
-				if ($model->validate()) {
-					if ($model->upload) {
-						$filePath = 'uploads/' . $model->upload->baseName . '.' . $model->upload->extension;
-						if ($model->upload->saveAs($filePath)) {
-							$model->image = $filePath;
-						}
-					}
-
-					if ($model->save(false)) {
-						$upload->book_id = $model->id;
-						$upload->upload();
-					}
-						return $model;
-					}
-				}
-			}*/
 		}
 }
