@@ -116,10 +116,7 @@ class Book extends ActiveRecord {
 	}
 
 	public function afterSave($insert, $changedAttributes) {
-		// If this is not a new record, unlink all records related through relationship 'activities'
-		if (array_key_exists('bookmark', $changedAttributes)) {
-			parent::afterSave($insert, $changedAttributes);
-		} else {
+		if(array_key_exists('tags', $changedAttributes)) {
 			if (!$this->isNewRecord) {
 				$this->unlinkAll('tags', true);
 			}
@@ -127,9 +124,10 @@ class Book extends ActiveRecord {
 				$tag = Tag::findOne($tag_id);
 				$this->link('tags', $tag);
 			}
-			if (array_key_exists('text', $changedAttributes)) {
-				$this->saveTextToFs();
-			}
+
+		}
+		if (array_key_exists('text', $changedAttributes)) {
+			$this->saveTextToFs();
 		}
 		parent::afterSave($insert, $changedAttributes);
 	}
