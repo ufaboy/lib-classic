@@ -7,6 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "book".
@@ -30,7 +31,7 @@ use yii\db\ActiveRecord;
  * @property BookTag[] $bookTags
  * @property Series $series
  * @property Tag[] $tags
- * @property Tag[]|null $tag_ids
+ * @property int[]|null $tag_ids
  */
 class Book extends ActiveRecord {
 	public $tag_ids;
@@ -117,16 +118,15 @@ class Book extends ActiveRecord {
 	}
 
 	public function afterSave($insert, $changedAttributes) {
-		if(array_key_exists('tags', $changedAttributes)) {
-			if (!$this->isNewRecord) {
-				$this->unlinkAll('tags', true);
-			}
-			foreach ($this->tag_ids as $tag_id) {
-				$tag = Tag::findOne($tag_id);
-				$this->link('tags', $tag);
-			}
 
+		if (!$this->isNewRecord) {
+			$this->unlinkAll('tags', true);
 		}
+		foreach ($this->tag_ids as $tag_id) {
+			$tag = Tag::findOne($tag_id);
+			$this->link('tags', $tag);
+		}
+
 		if (array_key_exists('text', $changedAttributes)) {
 			$this->saveTextToFs();
 		}
