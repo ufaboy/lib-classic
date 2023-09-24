@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "media".
+ * This is the model class for table "image".
  *
  * @property int $id
  * @property string|null $file_name
