@@ -58,7 +58,11 @@ class ImageSearch extends Image {
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
-		$query->joinWith('book');
+		$query->joinWith([
+			'book' => function ($query) {
+				$query->select(['id', 'name']); // Укажите нужные вам столбцы
+			},
+		]);
 		$this->load($params, '');
 
 		if (!$this->validate()) {
@@ -80,6 +84,7 @@ class ImageSearch extends Image {
 			->andFilterWhere(['ilike', 'book.name', $this->getAttribute('book.name')]);
 
 		$query->groupBy('image.id');
+
 		$dataProvider->sort->attributes['book.name'] = [
 			'asc' => ['book.name' => SORT_ASC],
 			'desc' => ['book.name' => SORT_DESC],

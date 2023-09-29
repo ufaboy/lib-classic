@@ -11,6 +11,8 @@ use app\modules\api\models\Book;
  */
 class BookSearch extends Book {
 	public string $tag = '';
+	public int|null $length = null;
+	public string|null $size = null;
 	public string $authorName = '';
 	public string $seriesName = '';
 
@@ -21,6 +23,7 @@ class BookSearch extends Book {
 	public function attributes(): array {
 		return array_merge(parent::attributes(), ['author.name', 'series.name']);
 	}
+
 	public function fields(): array {
 		return [
 			'id',
@@ -32,17 +35,19 @@ class BookSearch extends Book {
 			'tags',
 			'author',
 			'series',
+			'length',
 			'updated_at',
 			'last_read',
 		];
 	}
+
 	/**
 	 * {@inheritdoc}
 	 */
 	public function rules(): array {
 		return [
 			[['id', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
-			[['name', 'description', 'text', 'source', 'cover', 'tag', 'authorName', 'seriesName', 'author.name', 'series.name', 'perPage', 'sort', 'page'], 'safe'],
+			[['name', 'description', 'text', 'source', 'cover', 'tag', 'authorName', 'seriesName', 'author.name', 'series.name', 'perPage', 'sort', 'page', 'size'], 'safe'],
 		];
 	}
 
@@ -61,7 +66,11 @@ class BookSearch extends Book {
 	 *
 	 * @return ActiveDataProvider
 	 */
+
 	public function search($params) {
+		$sizeStart = null;
+		$sizeLast = null;
+
 		$query = self::find();
 		$query->joinWith('author');
 		$query->joinWith('series');
@@ -86,7 +95,22 @@ class BookSearch extends Book {
 			// $query->where('0=1');
 			return $dataProvider;
 		}
-		$query->select(["book.*", 'count("tag"."id") AS tag_count']);
+
+		if ($this->size === 'S') {
+			$sizeStart = 0;
+			$sizeLast = 49999;
+		} elseif ($this->size === 'M') {
+			$sizeStart = 50000;
+			$sizeLast = 299999;
+		} elseif ($this->size === 'L') {
+			$sizeStart = 300000;
+			$sizeLast = 499999;
+		} elseif ($this->size === 'XL') {
+			$sizeStart = 500000;
+			$sizeLast = 999999999;
+		}
+
+		$query->select(["book.*", 'count("tag"."id") AS tag_count', 'LENGTH(book.text) as length']);
 
 		$query->andFilterWhere([
 			'book.id' => $this->id,
@@ -108,7 +132,15 @@ class BookSearch extends Book {
 			->andFilterWhere(['ilike', 'author.name', $this->authorName])
 			->andFilterWhere(['ilike', 'series.name', $this->seriesName]);
 
+		$query->andFilterWhere([
+			'between', 'LENGTH(book.text)', $sizeStart, $sizeLast
+		]);
+
 		$query->groupBy(['book.id', 'author.name', 'series.name']);
+		$dataProvider->sort->attributes['length'] = [
+			'asc' => ['length' => SORT_ASC],
+			'desc' => ['length' => SORT_DESC],
+		];
 		$dataProvider->sort->attributes['tags'] = [
 			'asc' => ['tag_count' => SORT_ASC],
 			'desc' => ['tag_count' => SORT_DESC],
