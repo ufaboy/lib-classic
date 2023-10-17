@@ -184,7 +184,7 @@ class Book extends ActiveRecord {
 	 * @return ActiveQuery
 	 */
 	public function getImages(): ActiveQuery {
-		return $this->hasMany(Image::class, ['book_id' => 'id']);
+		return $this->hasMany(Image::class, ['book_id' => 'id'])->orderBy(['file_name' => SORT_ASC]);
 	}
 }
 

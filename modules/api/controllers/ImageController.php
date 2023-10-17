@@ -4,8 +4,10 @@ namespace app\modules\api\controllers;
 
 use app\modules\api\models\Image;
 use app\modules\api\models\ImageSearch;
+use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
+use yii\helpers\VarDumper;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 class ImageController extends Controller {
@@ -86,32 +88,32 @@ class ImageController extends Controller {
 	 * Updates an existing Image model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param int $id ID
-	 * @return string|\yii\web\Response
+	 * @return Image | array
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionUpdate($id) {
+		$data = $this->request->post();
 		$model = $this->findModel($id);
-
-		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+//		Yii::debug(VarDumper::dumpAsString($data));
+//		if ($this->request->isPost && $model->renameImage($data['file_name']) && $model->load($this->request->post(), 'Image')) {
+//			return $model->save();
+//		}
+		if ($this->request->isPost && $model->renameImage($data['file_name']) && $model->load($data, '') && $model->save()) {
+			return $model;
 		}
-
-		return $this->render('update', [
-			'model' => $model,
-		]);
+		Yii::$app->response->setStatusCode(500);
+		return ['message' => 'Failed to update image', 'errors' => $model->getErrors()];
 	}
 
 	/**
 	 * Deletes an existing Image model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param int $id ID
-	 * @return \yii\web\Response
+	 * @return false|int
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionDelete($id) {
-		$this->findModel($id)->delete();
-
-		return $this->redirect(['index']);
+		return $this->findModel($id)->delete();
 	}
 	public function actionDeleteAll($bookId) {
 		return Image::deleteAll(['book_id' => $bookId]);
