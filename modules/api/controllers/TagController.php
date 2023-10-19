@@ -68,41 +68,37 @@ class TagController extends Controller {
 	/**
 	 * Creates a new Tag model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return string|\yii\web\Response
+	 * @return Tag
 	 */
 	public function actionCreate() {
 		$model = new Tag();
 
 		if ($this->request->isPost) {
 			if ($model->load($this->request->post()) && $model->save()) {
-				return $this->redirect(['view', 'id' => $model->id]);
+				return $model;
 			}
 		} else {
 			$model->loadDefaultValues();
 		}
 
-		return $this->render('create', [
-			'model' => $model,
-		]);
+		return $model;
 	}
 
 	/**
 	 * Updates an existing Tag model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param int $id ID
-	 * @return string|\yii\web\Response
+	 * @return Tag
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
 
 		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+			return $model;
 		}
 
-		return $this->render('update', [
-			'model' => $model,
-		]);
+		return $model;
 	}
 
 	/**
