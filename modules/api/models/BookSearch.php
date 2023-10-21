@@ -5,6 +5,7 @@ namespace app\modules\api\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\api\models\Book;
+use yii\db\Expression;
 
 /**
  * BookSearch represents the model behind the search form of `app\modules\api\models\Book`.
@@ -138,26 +139,37 @@ class BookSearch extends Book {
 
 		$query->groupBy(['book.id', 'author.name', 'series.name']);
 		$dataProvider->sort->attributes['length'] = [
-			'asc' => ['length' => SORT_ASC],
-			'desc' => ['length' => SORT_DESC],
+			'asc' => ['length' => SORT_ASC, 'book.id' => SORT_ASC],
+			'desc' => ['length' => SORT_DESC, 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['tags'] = [
-			'asc' => ['tag_count' => SORT_ASC],
-			'desc' => ['tag_count' => SORT_DESC],
+			'asc' => ['tag_count' => SORT_ASC, 'book.id' => SORT_ASC],
+			'desc' => ['tag_count' => SORT_DESC, 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['author'] = [
-			'asc' => ['author.name' => SORT_ASC],
-			'desc' => ['author.name' => SORT_DESC],
+			'asc' => ['author.name' => SORT_ASC, 'book.id' => SORT_ASC],
+			'desc' => ['author.name' => SORT_DESC, 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['series'] = [
-			'asc' => ['series.name' => SORT_ASC],
-			'desc' => ['series.name' => SORT_DESC],
+			'asc' => ['series.name' => SORT_ASC, 'book.id' => SORT_ASC],
+			'desc' => ['series.name' => SORT_DESC, 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['rating'] = [
-			'asc' => [new \yii\db\Expression('rating ASC NULLS FIRST'),],
-			'desc' => [new \yii\db\Expression('rating DESC NULLS LAST'),],
+			'asc' => [new \yii\db\Expression('rating ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new \yii\db\Expression('rating DESC NULLS LAST'), 'book.id' => SORT_DESC],
 		];
-
+		$dataProvider->sort->attributes['updated_at'] = [
+			'asc' => [new \yii\db\Expression('updated_at ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new \yii\db\Expression('updated_at DESC NULLS LAST'), 'book.id' => SORT_DESC],
+		];
+		$dataProvider->sort->attributes['view_count'] = [
+			'asc' => [new \yii\db\Expression('view_count ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new \yii\db\Expression('view_count DESC NULLS LAST'), 'book.id' => SORT_DESC],
+		];
+		$dataProvider->sort->attributes['last_read'] = [
+			'asc' => [new \yii\db\Expression('last_read ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new \yii\db\Expression('last_read DESC NULLS LAST'), 'book.id' => SORT_DESC],
+		];
 		return $dataProvider;
 	}
 }

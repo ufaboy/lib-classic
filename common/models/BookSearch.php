@@ -126,6 +126,10 @@ class BookSearch extends Book {
 			'asc' => ['series.name' => SORT_ASC],
 			'desc' => ['series.name' => SORT_DESC],
 		];
+		$dataProvider->sort->attributes['rating'] = [
+			'asc' => [new \yii\db\Expression('rating ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new \yii\db\Expression('rating DESC NULLS LAST'), 'book.id' => SORT_DESC],
+		];
 		return $dataProvider;
 	}
 }
