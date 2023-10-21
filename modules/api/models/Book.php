@@ -24,6 +24,7 @@ use yii\db\ActiveRecord;
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $last_read
+ * @property int|null $text_length
  *
  * @property Author $author
  * @property BookTag[] $bookTags
@@ -57,7 +58,7 @@ class Book extends ActiveRecord {
 	public function rules(): array {
 		return [
 			[['text'], 'string'],
-			[['view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
+			[['view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read', 'text_length'], 'integer'],
 			[['tag_ids', 'bookmark'], 'safe'],
 			[['name', 'cover'], 'string', 'max' => 255],
 			[['description', 'source'], 'string', 'max' => 1024],
@@ -81,7 +82,8 @@ class Book extends ActiveRecord {
 //			'author',
 //			'series',
 			'created_at',
-			'updated_at',];
+			'updated_at',
+			'text_length'];
 	}
 
 	public function extraFields() {
@@ -112,6 +114,7 @@ class Book extends ActiveRecord {
 			'created_at' => 'Created At',
 			'updated_at' => 'Updated At',
 			'last_read' => 'Last Read',
+			'text_length' => 'Text Length',
 		];
 	}
 

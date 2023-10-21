@@ -39,6 +39,7 @@ class BookSearch extends Book {
 			'length',
 			'updated_at',
 			'last_read',
+			'text_length'
 		];
 	}
 
@@ -47,7 +48,7 @@ class BookSearch extends Book {
 	 */
 	public function rules(): array {
 		return [
-			[['id', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read'], 'integer'],
+			[['id', 'view_count', 'rating', 'bookmark', 'author_id', 'series_id', 'created_at', 'updated_at', 'last_read', 'text_length'], 'integer'],
 			[['name', 'description', 'text', 'source', 'cover', 'tag', 'authorName', 'seriesName', 'author.name', 'series.name', 'perPage', 'sort', 'page', 'size'], 'safe'],
 		];
 	}
@@ -111,7 +112,18 @@ class BookSearch extends Book {
 			$sizeLast = 999999999;
 		}
 
-		$query->select(["book.*", 'count("tag"."id") AS tag_count', 'LENGTH(book.text) as length']);
+//		$query->select(["book.*", 'count("tag"."id") AS tag_count', 'LENGTH(book.text) as length']);
+		$query->select(["book.id",
+			'book.name',
+			'book.description',
+			'book.view_count',
+			'book.rating',
+			'book.cover',
+			'book.author_id',
+			'book.series_id',
+			'book.updated_at',
+			'book.last_read',
+			'book.text_length']);
 
 		$query->andFilterWhere([
 			'book.id' => $this->id,
@@ -134,18 +146,18 @@ class BookSearch extends Book {
 			->andFilterWhere(['ilike', 'series.name', $this->seriesName]);
 
 		$query->andFilterWhere([
-			'between', 'LENGTH(book.text)', $sizeStart, $sizeLast
+			'between', 'book.text_length', $sizeStart, $sizeLast
 		]);
 
 		$query->groupBy(['book.id', 'author.name', 'series.name']);
-		$dataProvider->sort->attributes['length'] = [
-			'asc' => ['length' => SORT_ASC, 'book.id' => SORT_ASC],
-			'desc' => ['length' => SORT_DESC, 'book.id' => SORT_DESC],
+		$dataProvider->sort->attributes['text_length'] = [
+			'asc' => ['text_length' => SORT_ASC, 'book.id' => SORT_ASC],
+			'desc' => ['text_length' => SORT_DESC, 'book.id' => SORT_DESC],
 		];
-		$dataProvider->sort->attributes['tags'] = [
-			'asc' => ['tag_count' => SORT_ASC, 'book.id' => SORT_ASC],
-			'desc' => ['tag_count' => SORT_DESC, 'book.id' => SORT_DESC],
-		];
+//		$dataProvider->sort->attributes['tags'] = [
+//			'asc' => ['tag_count' => SORT_ASC, 'book.id' => SORT_ASC],
+//			'desc' => ['tag_count' => SORT_DESC, 'book.id' => SORT_DESC],
+//		];
 		$dataProvider->sort->attributes['author'] = [
 			'asc' => ['author.name' => SORT_ASC, 'book.id' => SORT_ASC],
 			'desc' => ['author.name' => SORT_DESC, 'book.id' => SORT_DESC],
@@ -155,20 +167,20 @@ class BookSearch extends Book {
 			'desc' => ['series.name' => SORT_DESC, 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['rating'] = [
-			'asc' => [new \yii\db\Expression('rating ASC NULLS FIRST'), 'book.id' => SORT_ASC],
-			'desc' => [new \yii\db\Expression('rating DESC NULLS LAST'), 'book.id' => SORT_DESC],
+			'asc' => [new Expression('rating ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new Expression('rating DESC NULLS LAST'), 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['updated_at'] = [
-			'asc' => [new \yii\db\Expression('updated_at ASC NULLS FIRST'), 'book.id' => SORT_ASC],
-			'desc' => [new \yii\db\Expression('updated_at DESC NULLS LAST'), 'book.id' => SORT_DESC],
+			'asc' => [new Expression('updated_at ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new Expression('updated_at DESC NULLS LAST'), 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['view_count'] = [
-			'asc' => [new \yii\db\Expression('view_count ASC NULLS FIRST'), 'book.id' => SORT_ASC],
-			'desc' => [new \yii\db\Expression('view_count DESC NULLS LAST'), 'book.id' => SORT_DESC],
+			'asc' => [new Expression('view_count ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new Expression('view_count DESC NULLS LAST'), 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['last_read'] = [
-			'asc' => [new \yii\db\Expression('last_read ASC NULLS FIRST'), 'book.id' => SORT_ASC],
-			'desc' => [new \yii\db\Expression('last_read DESC NULLS LAST'), 'book.id' => SORT_DESC],
+			'asc' => [new Expression('last_read ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+			'desc' => [new Expression('last_read DESC NULLS LAST'), 'book.id' => SORT_DESC],
 		];
 		return $dataProvider;
 	}
