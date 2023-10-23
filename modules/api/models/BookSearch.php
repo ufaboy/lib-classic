@@ -149,15 +149,15 @@ class BookSearch extends Book {
 			'between', 'book.text_length', $sizeStart, $sizeLast
 		]);
 
-		$query->groupBy(['book.id', 'author.name', 'series.name', 'tag.name']);
+		$query->groupBy(['book.id', 'author.name', 'series.name']);
 		$dataProvider->sort->attributes['text_length'] = [
 			'asc' => ['text_length' => SORT_ASC, 'book.id' => SORT_ASC],
 			'desc' => ['text_length' => SORT_DESC, 'book.id' => SORT_DESC],
 		];
-		$dataProvider->sort->attributes['tags'] = [
-			'asc' => [Tag::tableName() . '.name' => SORT_ASC, 'book.id' => SORT_ASC],
-			'desc' => [Tag::tableName() . '.name' => SORT_DESC, 'book.id' => SORT_DESC],
-		];
+//		$dataProvider->sort->attributes['tags'] = [
+//			'asc' => [Tag::tableName() . '.name' => SORT_ASC, 'book.id' => SORT_ASC],
+//			'desc' => [Tag::tableName() . '.name' => SORT_DESC, 'book.id' => SORT_DESC],
+//		];
 		$dataProvider->sort->attributes['author'] = [
 			'asc' => ['author.name' => SORT_ASC, 'book.id' => SORT_ASC],
 			'desc' => ['author.name' => SORT_DESC, 'book.id' => SORT_DESC],
