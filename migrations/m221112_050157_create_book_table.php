@@ -26,6 +26,7 @@ class m221112_050157_create_book_table extends Migration
             'bookmark' => $this->integer(),
             'source' => $this->string(1024),
             'cover' => $this->string(),
+            'text_length' => $this->integer(),
             'author_id' => $this->integer(),
             'series_id' => $this->integer(),
             'created_at' => $this->integer(11),

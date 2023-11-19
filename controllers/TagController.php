@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Tag;
 use app\models\TagSearch;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -49,6 +50,21 @@ class TagController extends Controller
      */
     public function actionIndex()
     {
+		$oldTags = \app\common\models\User::find()->orderBy('id')->all();
+
+		foreach ($oldTags as $oldTag) {
+			// Создаем новую модель тега
+			$newTag = new \app\models\User();
+
+			// Переносим данные
+			$newTag->attributes = $oldTag->attributes;
+
+			// Сохраняем новую модель
+			if (!$newTag->save()) {
+				// Обработка ошибок, если сохранение не удалось
+				Yii::error("Не удалось сохранить тег: " . print_r($newTag->errors, true));
+			}
+		}
         $searchModel = new TagSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
