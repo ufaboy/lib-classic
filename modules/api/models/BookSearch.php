@@ -167,21 +167,26 @@ class BookSearch extends Book {
 			'desc' => ['series.name' => SORT_DESC, 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['rating'] = [
-			'asc' => [new Expression('rating ASC NULLS FIRST'), 'book.id' => SORT_ASC],
-			'desc' => [new Expression('rating DESC NULLS LAST'), 'book.id' => SORT_DESC],
+			'asc' => [new Expression('rating ASC'), 'book.id' => SORT_ASC],
+			'desc' => [new Expression('rating DESC'), 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['updated_at'] = [
-			'asc' => [new Expression('updated_at ASC NULLS FIRST'), 'book.id' => SORT_ASC],
-			'desc' => [new Expression('updated_at DESC NULLS LAST'), 'book.id' => SORT_DESC],
+			'asc' => [new Expression('updated_at ASC'), 'book.id' => SORT_ASC],
+			'desc' => [new Expression('updated_at DESC'), 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['view_count'] = [
-			'asc' => [new Expression('view_count ASC NULLS FIRST'), 'book.id' => SORT_ASC],
-			'desc' => [new Expression('view_count DESC NULLS LAST'), 'book.id' => SORT_DESC],
+			'asc' => [new Expression('view_count ASC'), 'book.id' => SORT_ASC],
+			'desc' => [new Expression('view_count DESC'), 'book.id' => SORT_DESC],
 		];
 		$dataProvider->sort->attributes['last_read'] = [
-			'asc' => [new Expression('last_read ASC NULLS FIRST'), 'book.id' => SORT_ASC],
-			'desc' => [new Expression('last_read DESC NULLS LAST'), 'book.id' => SORT_DESC],
+			'asc' => [new Expression('last_read ASC'), 'book.id' => SORT_ASC],
+			'desc' => [new Expression('last_read DESC'), 'book.id' => SORT_DESC],
 		];
 		return $dataProvider;
 	}
 }
+
+/*$dataProvider->sort->attributes['rating'] = [
+	'asc' => [new Expression('rating ASC NULLS FIRST'), 'book.id' => SORT_ASC],
+	'desc' => [new Expression('rating DESC NULLS LAST'), 'book.id' => SORT_DESC],
+];*/
