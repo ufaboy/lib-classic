@@ -6,8 +6,7 @@ use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
 class User extends \app\common\models\User {
-	public function behaviors()
-	{
+	public function behaviors()	{
 		$behaviors = parent::behaviors();
 		$behaviors['authenticator'] = [
 			'class' => HttpBearerAuth::class,
@@ -15,7 +14,6 @@ class User extends \app\common\models\User {
 		return $behaviors;
 	}
 	public function getToken() {
-
 		$this->access_token = Yii::$app->getSecurity()->generateRandomString();
 		$this->save();
 		return $this->access_token;

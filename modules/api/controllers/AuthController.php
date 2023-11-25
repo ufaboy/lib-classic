@@ -83,6 +83,20 @@ class AuthController extends Controller {
 	}
 
 	/**
+	 * @throws \Exception
+	 */
+	public function actionChallenge() {
+		$session = Yii::$app->session;
+		$challenge = base64_encode(random_bytes(32));
+		$session->set('challenge', $challenge);
+		return $challenge;
+	}
+	public function actionSignin() {
+		$session = Yii::$app->session;
+		return $session['challenge'];
+	}
+
+	/**
 	 * Logout action.
 	 *
 	 * @return Response
