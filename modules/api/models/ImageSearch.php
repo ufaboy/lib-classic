@@ -9,7 +9,9 @@ use yii\helpers\VarDumper;
 
 class ImageSearch extends Image {
     public string $bookName = '';
-
+	public $sort;
+	public $perPage = 10;
+	public $page = 1;
 	public function attributes(): array {
 		return array_merge(parent::attributes(), ['book.name']);
 	}
@@ -33,7 +35,7 @@ class ImageSearch extends Image {
 	public function rules(): array {
 		return [
 			[['id', 'book_id'], 'integer'],
-			[['file_name', 'book_id', 'path', 'bookName', 'book.name'], 'safe'],
+			[['file_name', 'book_id', 'path', 'bookName', 'book.name', 'perPage', 'sort', 'page'], 'safe'],
 		];
 	}
 
@@ -57,6 +59,14 @@ class ImageSearch extends Image {
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
+			'pagination' => [
+				'pageSize' => $params['perPage'],
+			],
+			'sort' => [
+				'defaultOrder' => [
+					'book_id' => SORT_DESC,
+				],
+			],
 		]);
 		$query->joinWith([
 			'book' => function ($query) {
